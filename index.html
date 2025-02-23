@@ -21,6 +21,7 @@
             position: absolute;
             top: 0;
             left: 0;
+            z-index: 1; /* Ensure canvas is below the info panel */
         }
 
         #info-panel {
@@ -30,7 +31,7 @@
             background: rgba(0, 0, 0, 0.7);
             padding: 20px;
             border-radius: 10px;
-            z-index: 10;
+            z-index: 10; /* Ensure info panel is above the canvas */
             opacity: 0; /* Start hidden for GSAP animation */
         }
 
@@ -212,4 +213,4 @@
         animate();
     </script>
 </body>
-    </html>
+</html>
