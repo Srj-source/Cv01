@@ -1,216 +1,118 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Animated Portfolio</title>
+    <title>3D Resume Portfolio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden;
-            background-color: #1e1e1e;
-            color: white;
+        body {
             font-family: Arial, sans-serif;
-        }
-
-        #container {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1; /* Ensure canvas is below the info panel */
-        }
-
-        #info-panel {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 10px;
-            z-index: 10; /* Ensure info panel is above the canvas */
-            opacity: 0; /* Start hidden for GSAP animation */
-        }
-
-        h1 {
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
             margin: 0;
-            font-size: 2em;
-        }
-
-        p {
-            margin: 5px 0;
-        }
-
-        ul {
-            list-style-type: none;
             padding: 0;
-        }
+            transition: background-color 0.5s, color 0.5s;
+        }.dark-mode {
+        background-color: #1e1e1e;
+        color: #ffffff;
+    }
 
-        ul li {
-            margin: 5px 0;
-        }
-    </style>
+    button {
+        margin: 10px;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        background-color: #007BFF;
+        color: white;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    #resume-content {
+        max-width: 800px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .dark-mode #resume-content {
+        background: #333;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+
+    #canvas-container {
+        width: 100%;
+        height: 400px;
+        margin-top: 20px;
+    }
+</style>
+
 </head>
 <body>
-    <div id="container"></div>
-    <div id="info-panel">
-        <h1>John Doe</h1>
-        <p>Computer Science Student</p>
-        <ul>
-            <li>📧 Email: john.doe@example.com</li>
-            <li>📞 Phone: +123 456 7890</li>
-            <li>🐱 GitHub: github.com/johndoe</li>
-            <li>🔗 LinkedIn: linkedin.com/in/johndoe</li>
-        </ul>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
-    <script>
-        // Set up the scene, camera, and renderer
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.getElementById('container').appendChild(renderer.domElement);
+    <button id="dark-mode-toggle">Toggle Dark Mode</button>
+    <button id="print-resume">Print Resume</button><div id="canvas-container"></div>
+<div id="resume-content">
+    <h1>[Your Name]</h1>
+    <p><strong>Phone:</strong> [Your Phone Number]</p>
+    <p><strong>Email:</strong> [Your Email Address]</p>
+    <p><strong>LinkedIn:</strong> <a href="[Your LinkedIn Profile]" target="_blank">Profile</a></p>
+    <p><strong>GitHub:</strong> <a href="[Your GitHub Profile]" target="_blank">Portfolio</a></p>
+    
+    <h2>Objective</h2>
+    <p>A highly motivated and passionate BTech student seeking opportunities to apply my technical and problem-solving skills.</p>
+    
+    <h2>Education</h2>
+    <p><strong>BTech in [Your Branch]</strong><br>[Your University], [Location]<br>[Start Year] – [Expected Graduation Year]</p>
+    
+    <h2>Technical Skills</h2>
+    <ul>
+        <li>Programming: C, C++, Java, Python</li>
+        <li>Web Development: HTML, CSS, JavaScript</li>
+        <li>Databases: SQL, MySQL, MongoDB</li>
+    </ul>
+    
+    <h2>Projects</h2>
+    <p><strong>[Project 1]</strong>: Description</p>
+    <p><strong>[Project 2]</strong>: Description</p>
+</div>
 
-        // Add lighting
-        const ambientLight = new THREE.AmbientLight(0x404040, 2);
-        scene.add(ambientLight);
+<script>
+    document.getElementById('dark-mode-toggle').addEventListener('click', function() {
+        document.body.classList.toggle('dark-mode');
+    });
 
-        const pointLight = new THREE.PointLight(0xffffff, 1, 100);
-        pointLight.position.set(10, 10, 10);
-        scene.add(pointLight);
+    document.getElementById('print-resume').addEventListener('click', function() {
+        window.print();
+    });
 
-        // Create a 3D cube with a texture
-        const geometry = new THREE.BoxGeometry(2, 2, 2);
-        const textureLoader = new THREE.TextureLoader();
-        const texture = textureLoader.load('https://via.placeholder.com/512'); // Default placeholder image
-        const material = new THREE.MeshPhongMaterial({ map: texture });
-        const cube = new THREE.Mesh(geometry, material);
-        scene.add(cube);
+    // Initialize Three.js 3D Object
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.getElementById('canvas-container').appendChild(renderer.domElement);
+    
+    const geometry = new THREE.BoxGeometry();
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+    camera.position.z = 5;
+    
+    function animate() {
+        requestAnimationFrame(animate);
+        cube.rotation.x += 0.01;
+        cube.rotation.y += 0.01;
+        renderer.render(scene, camera);
+    }
+    animate();
+</script>
 
-        // Position the camera
-        camera.position.z = 5;
-
-        // Add sound effects
-        const hoverSound = new Howl({
-            src: ['https://assets.mixkit.co/active_storage/sfx/2411/2411-preview.mp3'], // Hover sound effect
-            volume: 0.5,
-        });
-
-        const clickSound = new Howl({
-            src: ['https://assets.mixkit.co/active_storage/sfx/2697/2697-preview.mp3'], // Click sound effect
-            volume: 0.5,
-        });
-
-        // GSAP animations
-        let isHovering = false;
-
-        // Hover animation
-        document.addEventListener('mousemove', (event) => {
-            const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-            const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-
-            // Rotate cube based on mouse position
-            gsap.to(cube.rotation, {
-                y: mouseX * 2,
-                x: mouseY * 2,
-                duration: 1,
-                ease: "power2.out",
-            });
-
-            // Scale cube on hover
-            if (!isHovering) {
-                gsap.to(cube.scale, {
-                    x: 1.2,
-                    y: 1.2,
-                    z: 1.2,
-                    duration: 0.5,
-                    ease: "elastic.out(1, 0.3)",
-                });
-                hoverSound.play();
-                isHovering = true;
-            }
-        });
-
-        // Reset cube scale when mouse leaves the window
-        document.addEventListener('mouseleave', () => {
-            gsap.to(cube.scale, {
-                x: 1,
-                y: 1,
-                z: 1,
-                duration: 0.5,
-                ease: "elastic.out(1, 0.3)",
-            });
-            isHovering = false;
-        });
-
-        // Click animation
-        document.addEventListener('click', () => {
-            clickSound.play();
-            gsap.to(cube.scale, {
-                x: 1.5,
-                y: 1.5,
-                z: 1.5,
-                duration: 0.2,
-                yoyo: true,
-                repeat: 1,
-                ease: "power2.inOut",
-            });
-
-            // Move camera on click
-            gsap.to(camera.position, {
-                z: 3,
-                duration: 1,
-                ease: "power2.inOut",
-                onComplete: () => {
-                    gsap.to(camera.position, {
-                        z: 5,
-                        duration: 1,
-                        ease: "power2.inOut",
-                    });
-                },
-            });
-
-            // Change background color
-            gsap.to("body", {
-                backgroundColor: "#2c3e50",
-                duration: 1,
-                ease: "power2.inOut",
-            });
-        });
-
-        // Floating text animation
-        const infoPanel = document.getElementById('info-panel');
-        gsap.from(infoPanel, {
-            opacity: 0,
-            y: 50,
-            duration: 2,
-            ease: "power2.out",
-            delay: 1,
-        });
-
-        // Animation loop
-        function animate() {
-            requestAnimationFrame(animate);
-            renderer.render(scene, camera);
-        }
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            const width = window.innerWidth;
-            const height = window.innerHeight;
-            renderer.setSize(width, height);
-            camera.aspect = width / height;
-            camera.updateProjectionMatrix();
-        });
-
-        // Start the animation
-        animate();
-    </script>
 </body>
 </html>
