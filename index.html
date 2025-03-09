@@ -14,28 +14,43 @@ body {
     overflow-x: hidden;
 }
 
+/* Header */
 header {
-    background: linear-gradient(135deg, #2c3e50, #34495e);
-    color: #ecf0f1;
+    background: linear-gradient(135deg, #1f2a44, #2e3b5e);
+    color: #ffd700;
     padding: 40px 0;
     text-align: center;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-header h1 {
-    margin: 0;
-    font-size: 3.5em;
-    font-weight: 600;
+    position: relative;
     animation: fadeInDown 1.5s ease;
 }
 
-header p {
-    margin: 10px 0 0;
-    font-size: 1.2em;
-    animation: fadeInUp 1.5s ease;
+header h1 {
+    font-family: 'Amiri', serif;
+    font-size: 4em;
+    text-shadow: 3px 3px 10px rgba(255, 215, 0, 0.8);
 }
 
-/* Gallery Styles */
+header p {
+    font-size: 1.5em;
+    text-shadow: 1px 1px 5px rgba(255, 215, 0, 0.6);
+}
+
+header::before {
+    content: "🌙";
+    font-size: 100px;
+    position: absolute;
+    top: -20px;
+    left: 10%;
+    animation: moonGlow 2s infinite alternate;
+}
+
+@keyframes moonGlow {
+    from { opacity: 0.7; transform: scale(1); }
+    to { opacity: 1; transform: scale(1.1); }
+}
+
+/* Gallery */
 .gallery {
     display: flex;
     flex-wrap: wrap;
@@ -57,7 +72,7 @@ header p {
 
 .image-container:hover {
     transform: scale(1.1);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
 }
 
 .image-container img {
@@ -67,7 +82,7 @@ header p {
     transition: transform 0.3s ease;
 }
 
-/* Lightbox Styles */
+/* Lightbox */
 .lightbox {
     display: none;
     position: fixed;
@@ -77,7 +92,7 @@ header p {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.8) url('ramadan-pattern.png') center/cover;
     text-align: center;
 }
 
@@ -111,48 +126,47 @@ header p {
     margin-top: 10px;
 }
 
-/* Animations */
-@keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* Footer */
+footer {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: #ffd700;
+    text-align: center;
+    padding: 15px 0;
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.3);
+    font-size: 1.2em;
+    text-shadow: 2px 2px 10px rgba(255, 215, 0, 0.7);
 }
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* Floating Lanterns */
+@keyframes floatLanterns {
+    0% { transform: translateY(0); opacity: 0.7; }
+    100% { transform: translateY(-100vh); opacity: 0; }
+}
+
+.lantern {
+    position: fixed;
+    width: 50px;
+    height: 80px;
+    background: url('lantern.png') no-repeat center/contain;
+    bottom: -100px;
+    animation: floatLanterns 6s infinite linear;
+}
+
+.lantern:nth-child(1) { left: 10%; animation-delay: 1s; }
+.lantern:nth-child(2) { left: 30%; animation-delay: 2s; }
+.lantern:nth-child(3) { left: 50%; animation-delay: 3s; }
+.lantern:nth-child(4) { left: 70%; animation-delay: 4s; }
+.lantern:nth-child(5) { left: 90%; animation-delay: 5s; }
+
+/* Animations */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes zoomIn {
-    from {
-        transform: scale(0.8);
-    }
-    to {
-        transform: scale(1);
-    }
-}
-
-/* Footer Styles */
-footer {
-    background: linear-gradient(135deg, #2c3e50, #34495e);
-    color: #ecf0f1;
-    text-align: center;
-    padding: 15px 0;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.3);
+    from { transform: scale(0.8); }
+    to { transform: scale(1); }
 }</style>
     <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
@@ -240,5 +254,8 @@ lightbox.addEventListener('click', (e) => {
         lightbox.style.display = 'none';
     }
 });</script>
+    <audio autoplay loop>
+    <source src="Aaa1.mp3" type="audio/mpeg">
+    </audio>
 </body>
 </html>
