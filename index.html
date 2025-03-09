@@ -4,10 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ramadan Mubarak - Image Gallery</title>
-    <style>/* General Styles */
+   <style>
+@keyframes floatUp {
+    0% { transform: translateY(0px) scale(0.8); opacity: 1; }
+    100% { transform: translateY(-100px) scale(1.2); opacity: 0; }
+}
+
+.heart {
+    position: absolute;
+    bottom: 0;
+    font-size: 24px;
+    color: red;
+    animation: floatUp 3s infinite ease-in-out;
+}
+   </style> <style>/* General Styles */
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #1e1e2f;
+    
+body {
+    transition: background 1s ease-in-out;
+
     color: #fff;
     margin: 0;
     padding: 0;
@@ -210,6 +226,46 @@ footer {
         <p>All rights reserved by suraj kr 😅.</p>
     </footer>
 
+
+
+<div id="hearts"></div>
+
+<script>
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.innerHTML = "❤️";
+    heart.classList.add("heart");
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+    
+    document.getElementById("hearts").appendChild(heart);
+
+    setTimeout(() => { heart.remove(); }, 3000);
+}
+
+setInterval(createHeart, 500);
+</script>
+<script>
+const colors = ["#ff9a9e", "#fad0c4", "#ffdde1", "#fbc2eb"];
+let i = 0;
+
+setInterval(() => {
+    document.body.style.background = colors[i];
+    i = (i + 1) % colors.length;
+}, 3000);
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.0"></script>
+
+<script>
+document.addEventListener("click", function(event) {
+    confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { x: event.clientX / window.innerWidth, y: event.clientY / window.innerHeight }
+    });
+});
+</script>
     <script>// Lightbox functionality
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightbox-img');
