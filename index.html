@@ -235,16 +235,63 @@ lightbox.addEventListener('click', (e) => {
     if (e.target !== lightboxImg) {
         lightbox.style.display = 'none';
     }
-});</script>
-<audio id="bg-music" autoplay loop muted>
+});</script><audio id="bg-music" loop>
     <source src="Aaa1.mp3" type="audio/mpeg">
 </audio>
-<button onclick="unmute()">Unmute</button>
+
+<div id="play-button" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    background: gold; padding: 15px 30px; font-size: 20px; border-radius: 10px; cursor: pointer; text-align: center;">
+    Click to Play Music 🎵
+</div>
+
 <script>
-    function unmute() {
+    document.addEventListener("DOMContentLoaded", function () {
         let audio = document.getElementById("bg-music");
-        audio.muted = false;
-        audio.play();
-    }
-            </script></body>
+        let playButton = document.getElementById("play-button");
+
+        // Try to autoplay
+        audio.play().then(() => {
+            console.log("Autoplay started successfully.");
+        }).catch(error => {
+            console.log("Autoplay blocked:", error);
+            playButton.style.display = "block"; // Show the button if blocked
+        });
+
+        // Play when button is clicked
+        playButton.addEventListener("click", function () {
+            audio.play();
+            playButton.style.display = "none"; // Hide the button after play
+        });
+    });
+</script> 
+    <audio id="bg-music" loop>
+    <source src="Aaa1.mp3" type="audio/mpeg">
+</audio>
+
+<div id="play-button" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    background: gold; padding: 15px 30px; font-size: 20px; border-radius: 10px; cursor: pointer; text-align: center;">
+    Click to Play Music 🎵
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let audio = document.getElementById("bg-music");
+        let playButton = document.getElementById("play-button");
+
+        // Try to autoplay
+        audio.play().then(() => {
+            console.log("Autoplay started successfully.");
+        }).catch(error => {
+            console.log("Autoplay blocked:", error);
+            playButton.style.display = "block"; // Show the button if blocked
+        });
+
+        // Play when button is clicked
+        playButton.addEventListener("click", function () {
+            audio.play();
+            playButton.style.display = "none"; // Hide the button after play
+        });
+    });
+</script>
+</body>
 </html>
