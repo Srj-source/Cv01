@@ -1,122 +1,112 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Resume Portfolio</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-            color: #333;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            transition: background 0.5s, color 0.5s;
-        }.dark-mode {
-        background: linear-gradient(135deg, #141e30, #243b55);
-        color: #ffffff;
-    }
+    <title>Stunning Image Gallery</title>
+    <style>/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 
-    button {
-        margin: 10px;
-        padding: 10px 20px;
-        border: none;
-        cursor: pointer;
-        background-color: #007BFF;
-        color: white;
-        border-radius: 5px;
-        transition: background-color 0.3s;
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
 
-    button:hover {
-        background-color: #0056b3;
-    }
+body {
+    background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+    color: white;
+    text-align: center;
+}
 
-    #resume-content {
-        max-width: 800px;
-        margin: auto;
-        background: rgba(255, 255, 255, 0.1);
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-        background: linear-gradient(135deg, #f3f3f3, #dcdcdc);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
+.header {
+    padding: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    margin: 20px auto;
+    width: 80%;
+}
 
-    .dark-mode #resume-content {
-        background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 20px;
+    max-width: 90%;
+    margin: auto;
+}
 
-    #canvas-container {
-        width: 100%;
-        height: 400px;
-        margin-top: 20px;
-    }
-</style>
+.gallery img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
 
+.gallery img:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.2);
+}
+
+/* Fullscreen View */
+.fullscreen {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+}
+
+.fullscreen img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+}</<style>
 </head>
 <body>
-    <button id="dark-mode-toggle">Toggle Dark Mode</button>
-    <button id="print-resume">Print Resume</button><div id="canvas-container"></div>
-<div id="resume-content">
-    <h1>Shivani Raj</h1>
-    <p><strong>Phone:</strong> 6206007505</p>
-    <p><strong>Email:</strong> shivaniraj4976@gmail.com</p>
-    <p><strong>LinkedIn:</strong> <a href="[Your LinkedIn Profile]" target="_blank">Profile</a></p>
-    <p><strong>GitHub:</strong> <a href="[Your GitHub Profile]" target="_blank">Portfolio</a></p>
+    <div class="header">
+        <h1>📸 My Stunning Gallery</h1>
+    </div>
     
-    <h2>Objective</h2>
-    <p>A highly motivated and passionate BTech student seeking opportunities to apply my technical and problem-solving skills.</p>
-    
-    <h2>Education</h2>
-    <p><strong>BTech in [Your Branch]</strong><br>[Your University], [Location]<br>[Start Year] – [Expected Graduation Year]</p>
-    
-    <h2>Technical Skills</h2>
-    <ul>
-        <li>Programming: C, C++, Java, Python</li>
-        <li>Web Development: HTML, CSS, JavaScript</li>
-        <li>Databases: SQL, MySQL, MongoDB</li>
-    </ul>
-    
-    <h2>Projects</h2>
-    <p><strong>[Project 1]</strong>: Description</p>
-    <p><strong>[Project 2]</strong>: Description</p>
-</div>
+    <div class="gallery">
+        <img src="images/img1.jpg" alt="Image 1" onclick="openFullscreen(this)">
+        <img src="images/img2.jpg" alt="Image 2" onclick="openFullscreen(this)">
+        <img src="images/img3.jpg" alt="Image 3" onclick="openFullscreen(this)">
+        <img src="images/img4.jpg" alt="Image 4" onclick="openFullscreen(this)">
+        <!-- Add more images here -->
+    </div>
 
-<script>
-    document.getElementById('dark-mode-toggle').addEventListener('click', function() {
-        document.body.classList.toggle('dark-mode');
-    });
+    <div id="fullscreen-view" class="fullscreen">
+        <span class="close" onclick="closeFullscreen()">&times;</span>
+        <img id="fullscreen-img">
+    </div>
 
-    document.getElementById('print-resume').addEventListener('click', function() {
-        window.print();
-    });
+    <script>function openFullscreen(img) {
+    document.getElementById("fullscreen-img").src = img.src;
+    document.getElementById("fullscreen-view").style.display = "flex";
+}
 
-    // Initialize Three.js 3D Object
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.getElementById('canvas-container').appendChild(renderer.domElement);
-    
-    const geometry = new THREE.BoxGeometry();
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
-    camera.position.z = 5;
-    
-    function animate() {
-        requestAnimationFrame(animate);
-        cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
-        renderer.render(scene, camera);
-    }
-    animate();
-</script>
-
+function closeFullscreen() {
+    document.getElementById("fullscreen-view").style.display = "none";
+}</script>
 </body>
-</html>
+                                  </html>
