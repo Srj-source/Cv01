@@ -109,7 +109,15 @@ header::before {
     background: rgba(0, 0, 0, 0.8) url('ramadan-pattern.png') center/cover;  
     text-align: center;  
 }  
-  
+  @keyframes glowHeart {
+    0% { box-shadow: 0 0 5px red; }
+    50% { box-shadow: 0 0 20px pink; }
+    100% { box-shadow: 0 0 5px red; }
+}
+
+.lightbox-content {
+    animation: glowHeart 2s infinite alternate;
+}
 .lightbox-content {  
     margin: auto;  
     display: block;  
