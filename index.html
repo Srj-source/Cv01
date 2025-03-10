@@ -3,6 +3,21 @@
     <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <title>Ramadan Mubarak - Image Gallery</title>  
+   <style>
+    .floting-heart {
+        position: absolute;
+        font-size: 24px;
+        color: red;
+        animation: flotUp 3s ease-in-out;
+    }
+
+    @keyframes flotUp {
+        from { transform: translateY(0) scale(1); opacity: 1; }
+        to { transform: translateY(-100px) scale(1.5); opacity: 0; }
+    }
+</style>
+
+
     <style>  
 @keyframes floatUp {  
     0% { transform: translateY(0px) scale(0.8); opacity: 1; }  
@@ -345,5 +360,19 @@ lightbox.style.display = 'none';
         // First attempt at autoplay  
         tryPlayAudio();  
     });  
-</script>  </body>  
+</script> 
+<script>
+    document.addEventListener("click", function(event) {
+        const heart = document.createElement("div");
+        heart.classList.add("floting-heart");
+        heart.innerHTML = "❤️";
+        document.body.appendChild(heart);
+
+        heart.style.left = event.clientX + "px";
+        heart.style.top = event.clientY + "px";
+
+        setTimeout(() => heart.remove(), 3000);
+    });
+</script>
+</body>  
             </html>
