@@ -400,5 +400,62 @@ lightbox.style.display = 'none';
         setTimeout(() => { emoji.remove(); }, 2000);
     }
              </script>
+
+
+
+
+
+
+
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Disable Right-Click
+    document.addEventListener("contextmenu", event => event.preventDefault());
+
+    // Disable Text Selection & Copying
+    document.addEventListener("selectstart", event => event.preventDefault());
+    document.addEventListener("copy", event => event.preventDefault());
+
+    // Block Common Keyboard Shortcuts (Inspect, Copy, View Source, etc.)
+    document.addEventListener("keydown", function (event) {
+        if (
+            event.key === "F12" || // DevTools
+            (event.ctrlKey || event.metaKey) && ["U", "S", "C", "X", "V", "I"].includes(event.key) // Common shortcuts
+        ) {
+            event.preventDefault();
+        }
+    });
+
+    // Prevent Image Dragging, Right-Click & Long-Press Downloading
+    document.querySelectorAll("img").forEach(img => {
+        img.setAttribute("oncontextmenu", "return false"); // Disable Right-Click
+        img.setAttribute("ondragstart", "return false");  // Disable Dragging
+        img.setAttribute("ontouchstart", (event) => event.preventDefault()); // Block Long-Press Download (Mobile)
+    });
+
+    // Detect DevTools & Close Tab
+    setInterval(function () {
+        let before = new Date().getTime();
+        debugger;
+        let after = new Date().getTime();
+        if (after - before > 100) {
+            alert("Developer Tools Detected! Access Denied.");
+            window.close();
+        }
+    }, 1000);
+
+    // Block Screenshots (For Some Devices)
+    document.addEventListener("visibilitychange", function () {
+        document.body.style.display = document.hidden ? "none" : "block";
+    });
+
+    // Prevent Screen Recording (Flickering Effect)
+    setInterval(() => {
+        document.body.style.opacity = "0.1";
+        setTimeout(() => document.body.style.opacity = "1", 50);
+    }, 1000);
+});
+        
+    </script>
 </body>  
             </html>
