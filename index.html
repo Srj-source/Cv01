@@ -440,12 +440,7 @@ document.addEventListener('dragstart', function(e) {
     }
 });
 
-// Prevent left-click
-document.addEventListener('mousedown', function(e) {
-    if (e.button === 0) { // Left click
-        e.preventDefault();
-    }
-});
+
 
 // Prevent long-press on images (touch devices)
 document.addEventListener('touchstart', function(e) {
@@ -454,20 +449,10 @@ document.addEventListener('touchstart', function(e) {
     }
 });
 
-// Detect and prevent opening developer tools
-(function() {
-    var devtools = function() {};
-    devtools.toString = function() {
-        if (!this.opened) {
-            this.opened = true;
-        }
-        return '';
-    };
-    console.log('%c ', devtools);
-})();
+
 </script>
 
-
+ <script></script>
 
     
 </body>  
