@@ -452,7 +452,32 @@ document.addEventListener('touchstart', function(e) {
 
 </script>
 
- <script></script>
+ <script>
+     // Block Ctrl + P / Command + P
+document.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+        e.preventDefault(); // Prevent the print dialog
+        alert('Printing is not allowed.'); // Show a warning
+    }
+});
+
+// Disable right-click to prevent accessing print via context menu
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+});
+
+// Block print via browser menu (if possible)
+window.onbeforeprint = function() {
+    alert('Printing is not allowed.');
+    return false; // Cancel the print event
+};
+
+// Block print via JavaScript window.print()
+window.print = function() {
+    alert('Printing is not allowed.');
+    return false;
+};
+ </script>
 
     
 </body>  
