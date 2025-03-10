@@ -403,122 +403,91 @@ lightbox.style.display = 'none';
 
 
 
-<script>// Prevent right-click
-document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-});
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    // Prevent right-click
+    document.addEventListener("contextmenu", (e) => e.preventDefault());
 
-// Prevent keyboard shortcuts for developer tools and saving
-document.addEventListener('keydown', function(e) {
-    // Disable Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, F12
-    if (e.ctrlKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 85)) {
-        e.preventDefault();
-    }
-    if (e.keyCode === 123) { // F12
-        e.preventDefault();
-    }
-    // Disable Ctrl+S
-    if (e.ctrlKey && e.keyCode === 83) {
-        e.preventDefault();
-    }
-});
+    // Prevent common keyboard shortcuts (DevTools, Print, Save, View Source)
+    document.addEventListener("keydown", (e) => {
+        const blockedKeys = [
+            { ctrl: true, key: ["i", "j", "u", "s", "p"] }, // Ctrl + (I, J, U, S, P)
+            { key: ["F12"] }, // F12
+        ];
 
-// Prevent copying text
-document.addEventListener('copy', function(e) {
-    e.preventDefault();
-});
+        blockedKeys.forEach((combo) => {
+            if (
+                (combo.ctrl && e.ctrlKey && combo.key.includes(e.key.toLowerCase())) ||
+                (combo.key.includes(e.key))
+            ) {
+                e.preventDefault();
+                alert("This action is disabled.");
+            }
+        });
+    });
 
-// Prevent cutting text
-document.addEventListener('cut', function(e) {
-    e.preventDefault();
-});
+    // Prevent text copying, cutting, and dragging images
+    ["copy", "cut", "dragstart"].forEach((event) => {
+        document.addEventListener(event, (e) => {
+            if (e.type === "dragstart" && e.target.tagName !== "IMG") return;
+            e.preventDefault();
+        });
+    });
 
-// Prevent dragging images
-document.addEventListener('dragstart', function(e) {
-    if (e.target.tagName === 'IMG') {
-        e.preventDefault();
-    }
-});
+    // Prevent long-press on images (touch devices)
+    document.addEventListener("touchstart", (e) => {
+        if (e.target.tagName === "IMG") e.preventDefault();
+    });
 
+    // Detect unauthorized browser extensions
+    (function detectExtensions() {
+        let iframe = document.createElement("iframe");
+        iframe.style.display = "none";
+        document.body.appendChild(iframe);
+        setTimeout(() => {
+            if (!iframe.contentWindow.chrome) {
+                alert("Unauthorized browser extensions detected!");
+                window.location.href = "about:blank";
+            }
+        }, 1000);
+    })();
 
+    // Hide content when the user switches tabs
+    document.addEventListener("visibilitychange", () => {
+        document.body.style.display = document.hidden ? "none" : "block";
+    });
 
-// Prevent long-press on images (touch devices)
-document.addEventListener('touchstart', function(e) {
-    if (e.target.tagName === 'IMG') {
-        e.preventDefault();
-    }
-});
+    // Detect three-finger touch gestures
+    document.addEventListener(
+        "touchstart",
+        (event) => {
+            if (event.touches.length > 2) event.preventDefault();
+        },
+        { passive: false }
+    );
 
+    // Prevent printing via JavaScript, context menu, or browser menu
+    window.onbeforeprint = () => {
+        alert("Printing is not allowed.");
+        return false;
+    };
+    window.print = () => {
+        alert("Printing is not allowed.");
+        return false;
+    };
 
-</script>
-
- <script>
-     // Block Ctrl + P / Command + P
-document.addEventListener('keydown', function(e) {
-    if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
-        e.preventDefault(); // Prevent the print dialog
-        alert('Printing is not allowed.'); // Show a warning
-    }
-});
-
-// Disable right-click to prevent accessing print via context menu
-document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-});
-
-// Block print via browser menu (if possible)
-window.onbeforeprint = function() {
-    alert('Printing is not allowed.');
-    return false; // Cancel the print event
-};
-
-// Block print via JavaScript window.print()
-window.print = function() {
-    alert('Printing is not allowed.');
-    return false;
-};
- </script>
-    <script>function detectExtensions() {
-    let hiddenFrame = document.createElement("iframe");
-    hiddenFrame.style.display = "none";
-    document.body.appendChild(hiddenFrame);
-    
-    setTimeout(() => {
-        if (!hiddenFrame.contentWindow.chrome) {
-            alert("Unauthorized browser extensions detected!");
-            window.location.href = "about:blank";
-        }
-    }, 1000);
-}
-
-document.addEventListener("DOMContentLoaded", detectExtensions);</script>
-    <script>
-        document.addEventListener("visibilitychange", function () {
-    if (document.hidden) {
-        document.body.style.display = "none"; // Hide content when user leaves
-    } else {
-        document.body.style.display = "block"; // Show content when they return
-    }
-});</script>
-    <script>
-        let lastVolume = 0;
-
-window.addEventListener("volumechange", function () {
+    // Detect volume button changes (if supported)
+    let lastVolume = 0;
     if (navigator.mediaSession) {
-        let currentVolume = navigator.mediaSession.volume;
-        if (currentVolume !== lastVolume) {
-            alert("Volume buttons detected! Screenshots are restricted.");
-            lastVolume = currentVolume;
-        }
+        window.addEventListener("volumechange", () => {
+            let currentVolume = navigator.mediaSession.volume;
+            if (currentVolume !== lastVolume) {
+                alert("Volume button detected! Screenshots are restricted.");
+                lastVolume = currentVolume;
+            }
+        });
     }
 });
-    </script>
-    <script>
-        document.addEventListener("touchstart", function (event) {
-    if (event.touches.length > 2) {  // Detect 3+ fingers
-        event.preventDefault(); // Block gesture
-    }
-}, { passive: false });
     </script>
 
     
