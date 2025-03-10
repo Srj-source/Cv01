@@ -403,55 +403,72 @@ lightbox.style.display = 'none';
 
 
 
+<script>// Prevent right-click
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+});
 
+// Prevent keyboard shortcuts for developer tools and saving
+document.addEventListener('keydown', function(e) {
+    // Disable Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, F12
+    if (e.ctrlKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 85)) {
+        e.preventDefault();
+    }
+    if (e.keyCode === 123) { // F12
+        e.preventDefault();
+    }
+    // Disable Ctrl+S
+    if (e.ctrlKey && e.keyCode === 83) {
+        e.preventDefault();
+    }
+});
 
+// Prevent copying text
+document.addEventListener('copy', function(e) {
+    e.preventDefault();
+});
 
+// Prevent cutting text
+document.addEventListener('cut', function(e) {
+    e.preventDefault();
+});
 
-    <script>
-document.addEventListener("DOMContentLoaded", function () {
-    // Disable Right-Click
-    document.addEventListener("contextmenu", event => event.preventDefault());
+// Prevent dragging images
+document.addEventListener('dragstart', function(e) {
+    if (e.target.tagName === 'IMG') {
+        e.preventDefault();
+    }
+});
 
-    // Disable Text Selection & Copying
-    document.addEventListener("selectstart", event => event.preventDefault());
-    document.addEventListener("copy", event => event.preventDefault());
+// Prevent left-click
+document.addEventListener('mousedown', function(e) {
+    if (e.button === 0) { // Left click
+        e.preventDefault();
+    }
+});
 
-    // Block Common Keyboard Shortcuts (Inspect, Copy, View Source, etc.)
-    document.addEventListener("keydown", function (event) {
-        if (
-            event.key === "F12" || // DevTools
-            (event.ctrlKey || event.metaKey) && ["U", "S", "C", "X", "V", "I"].includes(event.key) // Common shortcuts
-        ) {
-            event.preventDefault();
+// Prevent long-press on images (touch devices)
+document.addEventListener('touchstart', function(e) {
+    if (e.target.tagName === 'IMG') {
+        e.preventDefault();
+    }
+});
+
+// Detect and prevent opening developer tools
+(function() {
+    var devtools = function() {};
+    devtools.toString = function() {
+        if (!this.opened) {
+            this.opened = true;
         }
-    });
+        return '';
+    };
+    console.log('%c ', devtools);
+})();
+</script>
 
-    // Prevent Image Dragging, Right-Click & Long-Press Downloading
-    document.querySelectorAll("img").forEach(img => {
-        img.setAttribute("oncontextmenu", "return false"); // Disable Right-Click
-        img.setAttribute("ondragstart", "return false");  // Disable Dragging
-        img.setAttribute("ontouchstart", (event) => event.preventDefault()); // Block Long-Press Download (Mobile)
-    });
 
-    // Detect DevTools & Close Tab
-    setInterval(function () {
-        let before = new Date().getTime();
-        debugger;
-        let after = new Date().getTime();
-        if (after - before > 100) {
-            alert("Developer Tools Detected! Access Denied.");
-            window.close();
-        }
-    }, 1000);
 
-    // Block Screenshots (For Some Devices)
-    document.addEventListener("visibilitychange", function () {
-        document.body.style.display = document.hidden ? "none" : "block";
-    });
-
-   
     
-        
-    </script>
 </body>  
             </html>
