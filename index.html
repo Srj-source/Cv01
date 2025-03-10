@@ -15,7 +15,10 @@
     bottom: 0;
     font-size: 24px;
     color: red;
-    animation: floatUp 3s infinite ease-in-out;
+    animation: floatUp 4s ease-in-out;
+    white-space: nowrap;
+    text-align: center;
+    font-weight: bold;
 }
     </style>
    <style>/* General Styles */
@@ -231,19 +234,33 @@ footer {
 <div id="hearts"></div>
 
 <script>
+const loveMessages = [
+    "May our love shine as bright as the Ramadan moon. 🌙❤️",
+    "You are my greatest blessing this Ramadan. 🕌💕",
+    "Fasting is hard, but missing you is harder. 🥺❤️",
+    "Under the moonlight of Ramadan, my love for you grows stronger. 🌙💖",
+    "Each iftar reminds me of how sweet our love is. 🍽️💞",
+    "With every prayer, I ask for a lifetime with you. 🙏💝",
+    "Ramadan Mubarak, my love! Let's grow in faith together. ❤️✨"
+];
+
 function createHeart() {
     const heart = document.createElement("div");
-    heart.innerHTML = "❤️";
     heart.classList.add("heart");
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+    
+    // Set random love message inside the heart
+    heart.innerHTML = "❤️<br><span style='font-size:12px; color:white;'>" + loveMessages[Math.floor(Math.random() * loveMessages.length)] + "</span>";
+    
+    heart.style.left = Math.random() * 90 + "vw";  // Random horizontal position
+    heart.style.animationDuration = Math.random() * 2 + 3 + "s";  // Random speed
     
     document.getElementById("hearts").appendChild(heart);
 
-    setTimeout(() => { heart.remove(); }, 3000);
+    setTimeout(() => { heart.remove(); }, 4000);  // Remove after animation ends
 }
 
-setInterval(createHeart, 500);
+// Generate hearts every 1.5 seconds
+setInterval(createHeart, 1500);
 </script>
 <script>
 const colors = ["#ff9a9e", "#fad0c4", "#ffdde1", "#fbc2eb"];
