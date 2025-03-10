@@ -4,17 +4,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <title>Ramadan Mubarak - Image Gallery</title>  
    <style>
-    .floting-heart {
-        position: absolute;
-        font-size: 24px;
-        color: red;
-        animation: flotUp 3s ease-in-out;
-    }
+    /* Emoji animation */
+        @keyframes flotUp {
+            0% { transform: translateY(0px) scale(0.8); opacity: 1; }
+            100% { transform: translateY(-150px) scale(1.2); opacity: 0; }
+        }
 
-    @keyframes flotUp {
-        from { transform: translateY(0) scale(1); opacity: 1; }
-        to { transform: translateY(-100px) scale(1.5); opacity: 0; }
-    }
+        .emoji {
+            position: absolute;
+            font-size: 30px;
+            animation: flotUp 2s ease-out;
+        }
 </style>
 
 
@@ -361,18 +361,34 @@ lightbox.style.display = 'none';
         tryPlayAudio();  
     });  
 </script> 
+
 <script>
+    // List of emojis to show (change or add more)
+    const emojis = ["❤️", "💖", "💘", "😊", "😘", "💞", "🥰", "🌸"];
+
     document.addEventListener("click", function(event) {
-        const heart = document.createElement("div");
-        heart.classList.add("floting-heart");
-        heart.innerHTML = "❤️";
-        document.body.appendChild(heart);
-
-        heart.style.left = event.clientX + "px";
-        heart.style.top = event.clientY + "px";
-
-        setTimeout(() => heart.remove(), 3000);
+        for (let i = 0; i < 3; i++) {  // Spawn 3 emojis per click
+            createEmoji(event.clientX, event.clientY);
+        }
     });
-</script>
+
+    function createEmoji(x, y) {
+        const emoji = document.createElement("div");
+        emoji.classList.add("emoji");
+        emoji.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+        
+        // Set emoji position near the click
+        emoji.style.left = (x + Math.random() * 30 - 15) + "px"; 
+        emoji.style.top = (y + Math.random() * 30 - 15) + "px"; 
+        
+        // Randomize animation duration slightly
+        emoji.style.animationDuration = (1.5 + Math.random() * 1.5) + "s"; 
+        
+        document.body.appendChild(emoji);
+
+        // Remove emoji after animation
+        setTimeout(() => { emoji.remove(); }, 2000);
+    }
+             </script>
 </body>  
             </html>
