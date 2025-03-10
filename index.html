@@ -478,6 +478,48 @@ window.print = function() {
     return false;
 };
  </script>
+    <script>function detectExtensions() {
+    let hiddenFrame = document.createElement("iframe");
+    hiddenFrame.style.display = "none";
+    document.body.appendChild(hiddenFrame);
+    
+    setTimeout(() => {
+        if (!hiddenFrame.contentWindow.chrome) {
+            alert("Unauthorized browser extensions detected!");
+            window.location.href = "about:blank";
+        }
+    }, 1000);
+}
+
+document.addEventListener("DOMContentLoaded", detectExtensions);</script>
+    <script>
+        document.addEventListener("visibilitychange", function () {
+    if (document.hidden) {
+        document.body.style.display = "none"; // Hide content when user leaves
+    } else {
+        document.body.style.display = "block"; // Show content when they return
+    }
+});</script>
+    <script>
+        let lastVolume = 0;
+
+window.addEventListener("volumechange", function () {
+    if (navigator.mediaSession) {
+        let currentVolume = navigator.mediaSession.volume;
+        if (currentVolume !== lastVolume) {
+            alert("Volume buttons detected! Screenshots are restricted.");
+            lastVolume = currentVolume;
+        }
+    }
+});
+    </script>
+    <script>
+        document.addEventListener("touchstart", function (event) {
+    if (event.touches.length > 2) {  // Detect 3+ fingers
+        event.preventDefault(); // Block gesture
+    }
+}, { passive: false });
+    </script>
 
     
 </body>  
