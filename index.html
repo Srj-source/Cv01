@@ -67,25 +67,7 @@
 </footer>
 
 <div id="hearts"></div>  <script>
-    function createHeart() {
-    const heart = document.createElement("div");
-    heart.innerHTML = "❤️";
-    heart.classList.add("heart");
-
-    // Set a random horizontal position within the viewport width
-    heart.style.left = Math.random() * window.innerWidth + "px";
-
-    // Append to body
-    document.body.appendChild(heart);
-
-    // Remove after animation completes
-    setTimeout(() => {
-        heart.remove();
-    }, 3000);
-}
-
-// Generate hearts at an interval
-setInterval(createHeart, 500);
+  
 </script>  <script>  
 const colors = ["#ff9a9e", "#fad0c4", "#ffdde1", "#fbc2eb"];  
 let i = 0;  
@@ -94,7 +76,11 @@ setInterval(() => {
     document.body.style.background = colors[i];  
     i = (i + 1) % colors.length;  
 }, 3000);  
-</script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.0"></script>  <script>  
+</script>  
+    
+
+    
+      <script>  
 document.addEventListener("click", function(event) {  
     confetti({  
         particleCount: 100,  
@@ -103,122 +89,21 @@ document.addEventListener("click", function(event) {
     });  
 });  
 </script>
-      <script src="security.js"></script>  
-    <script>// Lightbox functionality
 
-const lightbox = document.getElementById('lightbox');
-const lightboxImg = document.getElementById('lightbox-img');
-const lightboxCaption = document.querySelector('.caption');
-const closeBtn = document.querySelector('.close');
-
-// Open lightbox
-document.querySelectorAll('.image-container').forEach(container => {
-container.addEventListener('click', () => {
-lightbox.style.display = 'block';
-lightboxImg.src = container.getAttribute('data-src');
-lightboxCaption.textContent = container.querySelector('img').alt;
-});
-});
-
-// Close lightbox
-closeBtn.addEventListener('click', () => {
-lightbox.style.display = 'none';
-});
-
-// Close lightbox when clicking outside the image
-lightbox.addEventListener('click', (e) => {
-if (e.target !== lightboxImg) {
-lightbox.style.display = 'none';
-}
-});</script>
+<script src="function createHeart.js"></script>     
+<script src="security.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.0"></script>    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script> 
+<script src="Lightbox functionality.js"></script> 
+<script src="audio.js"></script> 
+<script src="Lightbox functionality.js"></script> 
 <audio id="bg-music" loop>
 <source src="Aaa1.mp3" type="audio/mpeg">
 </audio>
-
-<script>  
-    document.addEventListener("DOMContentLoaded", function () {  
-        let audio = document.getElementById("bg-music");  
-  
-        function tryPlayAudio() {  
-            audio.play().then(() => {  
-                console.log("Audio autoplay successful!");  
-            }).catch(() => {  
-                console.log("Autoplay blocked, trying alternative methods...");  
-  
-                // Show an alert to encourage user action  
-                alert("Click OK to enable background music.");  
-  
-                // Create an overlay button if needed  
-                let overlay = document.createElement("div");  
-                overlay.innerHTML = "<button style='font-size:20px;padding:10px 20px;'>Play Music</button>";  
-                overlay.style.position = "fixed";  
-                overlay.style.top = "0";  
-                overlay.style.left = "0";  
-                overlay.style.width = "100%";  
-                overlay.style.height = "100%";  
-                overlay.style.display = "flex";  
-                overlay.style.alignItems = "center";  
-                overlay.style.justifyContent = "center";  
-                overlay.style.background = "rgba(0, 0, 0, 0.8)";  
-                overlay.style.zIndex = "9999";  
-                document.body.appendChild(overlay);  
-  
-                overlay.querySelector("button").addEventListener("click", () => {  
-                    audio.play();  
-                    document.body.removeChild(overlay);  
-                });  
-  
-                // Also try playing on user interaction (click, touch, keypress, mouse move)  
-                function playOnInteraction() {  
-                    audio.play();  
-                    document.removeEventListener("click", playOnInteraction);  
-                    document.removeEventListener("touchstart", playOnInteraction);  
-                    document.removeEventListener("keypress", playOnInteraction);  
-                    document.removeEventListener("mousemove", playOnInteraction);  
-                    document.removeEventListener("scroll", playOnInteraction);  
-                }  
-  
-                document.addEventListener("click", playOnInteraction);  
-                document.addEventListener("touchstart", playOnInteraction);  
-                document.addEventListener("keypress", playOnInteraction);  
-                document.addEventListener("mousemove", playOnInteraction);  
-                document.addEventListener("scroll", playOnInteraction);  
-            });  
-        }  
-  
-        // First attempt at autoplay  
-        tryPlayAudio();  
-    });  
-</script> 
-
+<script src="audio.js"></script> 
+<script src="audio.js"></script> 
 <script>
-    // List of emojis to show (change or add more)
-    const emojis = ["❤️", "💖", "💘", "😊", "😘", "💞", "🥰", "🌸"];
-
-    document.addEventListener("click", function(event) {
-        for (let i = 0; i < 3; i++) {  // Spawn 3 emojis per click
-            createEmoji(event.clientX, event.clientY);
-        }
-    });
-
-    function createEmoji(x, y) {
-        const emoji = document.createElement("div");
-        emoji.classList.add("emoji");
-        emoji.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-        
-        // Set emoji position near the click
-        emoji.style.left = (x + Math.random() * 30 - 15) + "px"; 
-        emoji.style.top = (y + Math.random() * 30 - 15) + "px"; 
-        
-        // Randomize animation duration slightly
-        emoji.style.animationDuration = (1.5 + Math.random() * 1.5) + "s"; 
-        
-        document.body.appendChild(emoji);
-
-        // Remove emoji after animation
-        setTimeout(() => { emoji.remove(); }, 2000);
-    }
-             </script>
+    </script>
 
 
     
