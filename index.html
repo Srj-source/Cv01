@@ -177,12 +177,13 @@ document.addEventListener("click", function(event) {
     }
              </script>
     <script>document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll("img").forEach(img => {
+    document.querySelectorAll(".image-container img").forEach(img => {
         img.onerror = function () {
-            this.style.display = "none"; // Hide the image if it fails to load
+            this.closest(".image-container").style.display = "none"; // Hide the entire container
         };
     });
 });
+
 </script>
 
 </body></html>
