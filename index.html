@@ -176,9 +176,14 @@ document.addEventListener("click", function(event) {
         setTimeout(() => { emoji.remove(); }, 2000);
     }
              </script>
-
-
-
+<script>document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("img").forEach(img => {
+        img.onerror = function () {
+            this.style.display = "none"; // Hide the image if it fails to load
+        };
+    });
+});
+</script>
 
 
 </body></html>
