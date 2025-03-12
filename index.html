@@ -10,7 +10,7 @@
     <link href="General Styles.css" rel="stylesheet">
     </head>  
 <body>  <header>  
-    <h1>Ramadan Mubarak</h1>  
+    <h1>Ramadan ubarak</h1>  
     <p>Blessed Month of Fasting, Prayer, and Reflection</p>  
 </header>  
 
@@ -176,13 +176,18 @@ document.addEventListener("click", function(event) {
         setTimeout(() => { emoji.remove(); }, 2000);
     }
              </script>
-<script>document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll("img").forEach(img => {
+<script>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".image-container img").forEach(img => {
         img.onerror = function () {
-            this.style.display = "none"; // Hide the image if it fails to load
+            // Hide the parent container (the image box) if the image fails to load
+            this.closest(".image-container").style.display = "none";
         };
     });
 });
+</script>
+
 </script>
 
 
