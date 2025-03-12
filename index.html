@@ -176,14 +176,33 @@ document.addEventListener("click", function(event) {
         setTimeout(() => { emoji.remove(); }, 2000);
     }
              </script>
-    <script>document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll(".image-container img").forEach(img => {
-        img.onerror = function () {
-            this.closest(".image-container").style.display = "none"; // Hide the entire container
-        };
-    });
-});
+    <script>
+      
+document.addEventListener("DOMContentLoaded", function () {
+    function removeBrokenImages() {
+        document.querySelectorAll(".image-container img").forEach(img => {
+            img.addEventListener("error", function () {
+                let container = this.closest(".image-container");
+                if (container) {
+                    container.remove(); // Remove the entire div if the image fails to load
+                }
+            });
 
+            // Also check if the image is already broken
+            if (!img.complete || img.naturalHeight === 0) {
+                let container = img.closest(".image-container");
+                if (container) {
+                    container.remove();
+                }
+            }
+        });
+    }
+
+    removeBrokenImages();
+});
 </script>
+
+
+
 
 </body></html>
