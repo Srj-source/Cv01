@@ -188,18 +188,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
 
-            // Also check if the image is already broken
-            if (!img.complete || img.naturalHeight === 0) {
-                let container = img.closest(".image-container");
-                if (container) {
-                    container.remove();
-                }
-            }
-        });
-    }
 
-    removeBrokenImages();
-});
 </script>
 
 
