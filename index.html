@@ -9,12 +9,18 @@
            <link href="heart floatUp.css" rel="stylesheet">
     <link href="General Styles.css" rel="stylesheet">
     </head>  
-<body>  <header>  
+<body> 
+     
+    <header>
+
     <h1>Ramadan Mubarak</h1>  
     <p>Blessed Month of Fasting, Prayer, and Reflection</p>  
+    <div id="stars-container"></div>
 </header>  
-
-<div class="gallery">  
+<div id="love-message" style="color:blue"></div>
+  
+<div class="gallery">
+      
     <!-- Add your images here -->  
     <div class="image-container" data-src="A1.jpg">  
         <img src="A1.jpg" alt="Day1">  
@@ -106,7 +112,7 @@
         <div class="image-container" data-src="A30.jpg">
             <img src="A30.jpg" alt="Day30">
         </div>
-    </div>  
+     
 </div>
 
 <!-- Lightbox -->  
@@ -134,6 +140,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script> 
 <script src="Lightbox functionality.js"></script> 
 <script src="audio.js"></script> 
+<script src="star-msg.js"></script> 
+<script src="p.message.js"></script> 
 <audio id="bg-music" loop>
 <source src="Aaa1.mp3" type="audio/mpeg">
 </audio> 
@@ -177,5 +185,18 @@ document.addEventListener("click", function(event) {
         setTimeout(() => { emoji.remove(); }, 2000);
     }
              </script>
+
+             <script>window.addEventListener("beforeunload", function(event) {
+                alert("Goodbye, Saiba! Remember, you are always in my heart. 💕");
+            });
+            </script>
+
+
+
+
+
+
+
+
 
 </body></html>

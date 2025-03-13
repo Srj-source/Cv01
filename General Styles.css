@@ -9,17 +9,41 @@ body {
     padding: 0;  
     overflow-x: hidden;  
 }  
-  
-/* Header */  
-header {  
-    background: linear-gradient(135deg, #1f2a44, #2e3b5e);  
-    color: #ffd700;  
-    padding: 40px 0;  
-    text-align: center;  
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);  
-    position: relative;  
-    animation: fadeInDown 1.5s ease;  
-}  
+
+  /* Header */
+header {
+    background: linear-gradient(135deg, #1f2a44, #2e3b5e);
+    color: #ffd700;
+    padding: 40px 0;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: fadeInDown 1.5s ease;
+    overflow: hidden;
+}
+
+/* Star Styling */
+.star {
+    position: absolute;
+    font-size: 18px;
+    color: #ffd700; /* Gold color */
+    cursor: pointer;
+    animation: twinkle 2s infinite alternate;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Twinkling Effect */
+@keyframes twinkle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+
+
+.star:hover {
+    transform: scale(1.2);
+}
+
   
 header h1 {  
     font-family: 'Amiri', serif;  
