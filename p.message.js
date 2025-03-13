@@ -40,7 +40,7 @@
 "The love between us is like a well-written Surah—pure and timeless. 🕋💖",
 "Your kindness is the most beautiful Sunnah you practice. ☀️💗",
 "Like an unbroken fast, my love for you remains steadfast. 🌙💕",
-"Aabbcc, your love is the bridge that connects my heart to Jannah. 🌉💞",
+"saiba, your love is the bridge that connects my heart to Jannah. 🌉💞",
 "If love had a color, yours would be the golden glow of Fajr. 🌅💖",
 "You are the peace after a long night of tahajjud. 🕌💙",
 "You are the Bismillah to my every new beginning. 📖💕",
