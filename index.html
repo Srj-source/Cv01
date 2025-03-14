@@ -9,17 +9,18 @@
             <link href="Emoji animation.css" rel="stylesheet">
            <link href="heart floatUp.css" rel="stylesheet">
     <style>/* General Styles */  
-body {  
-    font-family: 'Poppins', sans-serif;  
-      
-    transition: background 1s ease-in-out;  
-  
-    color: #fff;  
-    margin: 0;  
-    padding: 0;  
-    overflow-x: hidden;  
-}  
 
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 1.5s ease-in-out;
+}
   /* Header */
 header {
     background: linear-gradient(135deg, #1f2a44, #2e3b5e);
@@ -376,7 +377,28 @@ document.addEventListener("click", function(event) {
             </script>
 
 
+<script>
+    // Array of background images
+    const backgroundImages = [
+        "background1.jpg",  // Replace with actual image paths
+        "background2.jpg",
+        "background3.jpg",
+        "background4.jpg"
+    ];
 
+    let currentIndex = 0;
+
+    function changeBackground() {
+        document.body.style.backgroundImage = `url('${backgroundImages[currentIndex]}')`;
+        currentIndex = (currentIndex + 1) % backgroundImages.length;
+    }
+
+    // Change background every 3 seconds
+    setInterval(changeBackground, 3000);
+
+    // Set initial background
+    changeBackground();
+</script>
 
 
 
