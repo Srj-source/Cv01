@@ -293,8 +293,8 @@ footer {
         <div class="image-container" data-src="A29.jpg">
             <img src="A29.jpg" alt="Day29">
         </div>
-        <div class="image-container" data-src="A3.jpg">
-            <img src="A3.jpg" alt="Day3">
+        <div class="image-container" data-src="A4.jpg">
+            <img src="A4.jpg" alt="Day4">
         </div>
      
 </div>
@@ -371,6 +371,15 @@ document.addEventListener("click", function(event) {
              </script>
 
 
+<script>
+    document.querySelector('[data-src="A30.jpg"]').addEventListener("click", function() {
+    confetti({
+        particleCount: 200,
+        spread: 120,
+        origin: { y: 0.6 }
+    });
+});
+</script>
 
 
 
