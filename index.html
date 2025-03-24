@@ -19,7 +19,24 @@ body {
     padding: 0;  
     overflow-x: hidden;  
 }  
+img {
+  content: url('A23.gif');
+  animation: restart-gif 0s infinite;
+}
 
+@keyframes restart-gif {
+  from { content: url('A23.gif'); }
+  to { content: url('A23.gif'); }
+}
+        img {
+  content: url('A24');
+  animation: restart-gif 0s infinite;
+}
+
+@keyframes restart-gif {
+  from { content: url('A24.gif'); }
+  to { content: url('A24.gif'); }
+}
   /* Header */
 header {
     background: linear-gradient(135deg, #1f2a44, #2e3b5e);
