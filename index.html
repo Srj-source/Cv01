@@ -136,9 +136,7 @@ header::before {
     100% { box-shadow: 0 0 5px red; }
 }
 
-.lightbox-content {
-    animation: glowHeart 2s infinite alternate;
-}
+
 .lightbox-content {  
     margin: auto;  
     display: block;  
@@ -147,7 +145,45 @@ header::before {
     border-radius: 10px;  
     animation: zoomIn 0.3s ease;  
 }  
-  
+  /* Animated Glowing Boundary for Lightbox Image */
+.lightbox-content {
+    animation: glowHeart 2s infinite alternate, zoomIn 0.3s ease;
+    border-radius: 15px;
+    border: 10px solid transparent; /* Transparent initial border */
+    background: linear-gradient(45deg, #ffd700, #ff6b6b, #8b5cf6, #00d4ff);
+    background-clip: padding-box;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+    position: relative;
+}
+
+/* Add a Shimmering Effect to the Border */
+.lightbox-content::before {
+    content: "";
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    right: -12px;
+    bottom: -12px;
+    border-radius: 20px;
+    background: linear-gradient(45deg, #ffd700, #ff6b6b, #8b5cf6, #00d4ff);
+    background-size: 300% 300%;
+    animation: shimmer 6s infinite linear;
+    z-index: -1;
+}
+
+/* Shimmer Animation */
+@keyframes shimmer {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Glowing Animation */
+@keyframes glowHeart {
+    0% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.7); }
+    50% { box-shadow: 0 0 20px rgba(255, 107, 107, 0.7); }
+    100% { box-shadow: 0 0 10px rgba(0, 212, 255, 0.7); }
+    }
 .close {  
     position: absolute;  
     top: 20px;  
