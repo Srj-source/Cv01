@@ -1,412 +1,257 @@
-
-<!DOCTYPE html>  <html lang="en">  
-<head>  
-    <meta charset="UTF-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>Ramadan Mubarak - Image Gallery</title>  
-
-   <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-            <link href="Emoji animation.css" rel="stylesheet">
-           <link href="heart floatUp.css" rel="stylesheet">
-    <style>/* General Styles */  
-body {  
-    font-family: 'Poppins', sans-serif;  
-      
-    transition: background 1s ease-in-out;  
-  
-    color: #fff;  
-    margin: 0;  
-    padding: 0;  
-    overflow-x: hidden;  
-}  
-
-  /* Header */
-header {
-    background: linear-gradient(135deg, #1f2a44, #2e3b5e);
-    color: #ffd700;
-    padding: 40px 0;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    position: relative;
-    animation: fadeInDown 1.5s ease;
-    overflow: hidden;
-}
-        @media (min-width: 667px) { /* Tablets and Larger Screens */
-    header {
-        background: url('hero.jpg') no-repeat center center;
-        background-size: cover;
-        padding: 100px 20px; /* Increase padding for hero effect */}}
-
-/* Star Styling */
-.star {
-    position: absolute;
-    font-size: 18px;
-    color: #ffd700; /* Gold color */
-    cursor: pointer;
-    animation: twinkle 2s infinite alternate;
-    transition: transform 0.3s ease-in-out;
-}
-
-/* Twinkling Effect */
-@keyframes twinkle {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(1.2); }
-}
-
-
-
-.star:hover {
-    transform: scale(1.2);
-}
-
-  
-header h1 {  
-    font-family: 'Amiri', serif;  
-    font-size: 4em;  
-    text-shadow: 3px 3px 10px rgba(255, 215, 0, 0.8);  
-}  
-  
-header p {  
-    font-size: 1.5em;  
-    text-shadow: 1px 1px 5px rgba(255, 215, 0, 0.6);  
-}  
-  
-header::before {  
-    content: "🌙";  
-    font-size: 100px;  
-    position: absolute;  
-    top: -20px;  
-    left: 10%;  
-    animation: moonGlow 2s infinite alternate;  
-}  
-  
-@keyframes moonGlow {  
-    from { opacity: 0.7; transform: scale(1); }  
-    to { opacity: 1; transform: scale(1.1); }  
-}  
-  
-/* Gallery */  
-.gallery {  
-    display: flex;  
-    flex-wrap: wrap;  
-    justify-content: center;  
-    padding: 20px;  
-    gap: 15px;  
-}  
-  
-.image-container {  
-    position: relative;  
-    width: 200px;  
-    height: 200px;  
-    overflow: hidden;  
-    border-radius: 15px;  
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);  
-    transition: transform 0.3s ease, box-shadow 0.3s ease;  
-    cursor: pointer;  
-}  
-  
-.image-container:hover {  
-    transform: scale(1.1);  
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);  
-}  
-  
-.image-container img {  
-    width: 100%;  
-    height: 100%;  
-    object-fit: cover;  
-    transition: transform 0.3s ease;  
-}  
-
-/* Lightbox */  
-.lightbox {  
-    display: none;  
-    position: fixed;  
-    z-index: 1000;  
-    padding-top: 60px;  
-    left: 0;  
-    top: 0;  
-    width: 100%;  
-    height: 100%;  
-    background: rgba(0, 0, 0, 0.8) url('ramadan-pattern.png') center/cover;  
-    text-align: center;  
-}  
-  @keyframes glowHeart {
-    0% { box-shadow: 0 0 5px red; }
-    50% { box-shadow: 0 0 20px pink; }
-    100% { box-shadow: 0 0 5px red; }
-}
-
-
-.lightbox-content {  
-    margin: auto;  
-    display: block;  
-    max-width: 90%;  
-    max-height: 80vh;  
-    border-radius: 10px;  
-    animation: zoomIn 0.3s ease;  
-}  
-  /* Animated Glowing Boundary for Lightbox Image */
-.lightbox-content {
-    animation: glowHeart 2s infinite alternate, zoomIn 0.3s ease;
-    border-radius: 15px;
-    border: 10px solid transparent; /* Transparent initial border */
-    background: linear-gradient(45deg, #ffd700, #ff6b6b, #8b5cf6, #00d4ff);
-    background-clip: padding-box;
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
-    position: relative;
-}
-
-/* Add a Shimmering Effect to the Border */
-.lightbox-content::before {
-    content: "";
-    position: absolute;
-    top: -12px;
-    left: -12px;
-    right: -12px;
-    bottom: -12px;
-    border-radius: 20px;
-    background: linear-gradient(45deg, #ffd700, #ff6b6b, #8b5cf6, #00d4ff);
-    background-size: 300% 300%;
-    animation: shimmer 6s infinite linear;
-    z-index: -1;
-}
-
-/* Shimmer Animation */
-@keyframes shimmer {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* Glowing Animation */
-@keyframes glowHeart {
-    0% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.7); }
-    50% { box-shadow: 0 0 20px rgba(255, 107, 107, 0.7); }
-    100% { box-shadow: 0 0 10px rgba(0, 212, 255, 0.7); }
-    }
-.close {  
-    position: absolute;  
-    top: 20px;  
-    right: 35px;  
-    color: #fff;  
-    font-size: 40px;  
-    font-weight: bold;  
-    cursor: pointer;  
-    transition: color 0.3s ease;  
-}  
-  
-.close:hover {  
-    color: #e74c3c;  
-}  
-  
-.caption {  
-    color: #fff;  
-    font-size: 1.2em;  
-    margin-top: 10px;  
-}  
-  
-/* Footer */  
-footer {  
-    background: linear-gradient(135deg, #2c3e50, #34495e);  
-    color: #ffd700;  
-    text-align: center;  
-    padding: 15px 0;  
-    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.3);  
-    font-size: 1.2em;  
-    text-shadow: 2px 2px 10px rgba(255, 215, 0, 0.7);  
-}  
-  
-  
-  
-/* Animations */  
-@keyframes fadeInDown {  
-    from { opacity: 0; transform: translateY(-20px); }  
-    to { opacity: 1; transform: translateY(0); }  
-}  
-  
-@keyframes zoomIn {  
-    from { transform: scale(0.8); }  
-    to { transform: scale(1); }  
-}</style>
-    </head>  
-<body> 
-     
-    <header>
-
-    <h1>Ramadan Mubarak</h1>  
-    <p>Blessed Month of Fasting, Prayer, and Reflection</p>  
-    <div id="stars-container"></div>
-</header>  
-<div id="love-message" style="color:blue"></div>
-  
-<div class="gallery">
-      
-    <!-- Add your images here -->  
-   <div class="image-container" data-src="A1.jpg">
-        <img src="A1.jpg" alt="Day1">  
-    </div>  
-    <div class="image-container" data-src="A2.jpg">  
-        <img src="A2.jpg" alt="Day2">  
-    </div>  
-    <div class="image-container" data-src="A3.jpg">  
-        <img src="A3.jpg" alt="Day3">  
-    </div>  
-    <div class="image-container" data-src="A4.jpg">  
-        <img src="A4.jpg" alt="Day4">  
-    </div>  
-    <div class="image-container" data-src="A5.jpg">  
-        <img src="A5.jpg" alt="Day5">  
-    </div>  
-    <div class="image-container" data-src="A6.jpg">  
-        <img src="A6.jpg" alt="Day6">  
-    </div>  
-    <div class="image-container" data-src="A7.jpg">  
-        <img src="A7.jpg" alt="Day7">  
-    </div>  
-    <div class="image-container" data-src="A8.jpg">  
-        <img src="A8.jpg" alt="Day8">  
-    </div>  
-    <div class="image-container" data-src="A9.jpg">  
-        <img src="A9.jpg" alt="Day9">  
-    </div>  
-    <div class="image-container" data-src="A10.jpg">  
-        <img src="A10.jpg" alt="Day10">  
-    </div>  
-    <div class="image-container" data-src="A11.jpg">  
-        <img src="A11.jpg" alt="Day11">  
-    </div>  
-     <div class="image-container" data-src="A12.jpg">
-            <img src="A12.jpg" alt="Day12">
-        </div>
-        <div class="image-container" data-src="A13.jpg">
-            <img src="A13.jpg" alt="Day13">
-        </div>
-        <div class="image-container" data-src="A14.jpg">
-            <img src="A14.jpg" alt="Day14">
-        </div>
-        <div class="image-container" data-src="A15.jpg">
-            <img src="A15.jpg" alt="Day15">
-        </div>
-        <div class="image-container" data-src="A16.jpg">
-            <img src="A16.jpg" alt="Day16">
-        </div>
-        <div class="image-container" data-src="A17.jpg">
-            <img src="A17.jpg" alt="Day17">
-        </div>
-        <div class="image-container" data-src="A18.jpg">
-            <img src="A18.jpg" alt="Day18">
-        </div>
-        <div class="image-container" data-src="A19.jpg">
-            <img src="A19.jpg" alt="Day19">
-        </div>
-        <div class="image-container" data-src="A20.jpg">
-            <img src="A20.jpg" alt="Day20">
-        </div>
-        <div class="image-container" data-src="A21.jpg">
-            <img src="A21.jpg" alt="Day21">
-      
-        </div>
-        <div class="image-container" data-src="A22.jpg">
-            <img src="A22.jpg" alt="Day22">
-        </div>
-        <div class="image-container" data-src="A23.gif">
-            <img src="A23.gif" alt="Day23">
-        </div>
-        <div class="image-container" data-src="A24.gif">
-            <img src="A24.gif" alt="Day24">
-        </div>
-        <div class="image-container" data-src="A25.gif">
-            <img src="A25.gif" alt="Day25">
-        </div>
-        <div class="image-container" data-src="A26.jpg">
-            <img src="A26.jpg" alt="Day26">
-        </div>
-        <div class="image-container" data-src="A27.jpg">
-            <img src="A27.jpg" alt="Day27">
-        </div>
-        <div class="image-container" data-src="A28.gif">
-            <img src="A28.gif" alt="Day28">
-        </div>
-        <div class="image-container" data-src="A29.jpg">
-            <img src="A29.jpg" alt="Day29">
-        </div>
-          <div class="image-container" data-src="A30.gif">
-             <a href="https://aaaaaaajhsjsfwjgw.my.canva.site/cc03"> <img src="A30.gif" alt="Day30"></a>
-        </div>
-        
-     
-</div>
-
-<!-- Lightbox -->  
-<div id="lightbox" class="lightbox">  
-    <span class="close">&times;</span>  
-    <img class="lightbox-content" id="lightbox-img">  
-    <div class="caption"></div>  
-</div>  
-<div id="hearts"></div> 
-<footer>  
-    <p>All rights reserved by suraj kr 😅.</p>  
-</footer>
-
-
-
-    
-
-    
-     
-
-<script src="backgroundcolor.js"></script>
-<script src="function createHeart.js"></script>     
-<script src="security.js"></script> 
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.0"></script>    
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script> 
-<script src="Lightbox functionality.js"></script> 
-<script src="audio.js"></script> 
-<script src="star-msg.js"></script> 
-<script src="p.message.js"></script> 
-<audio id="bg-music" loop>
-<source src="Aaa1.mp3" type="audio/mpeg">
-</audio> 
-
-
-
-     <script>  
-document.addEventListener("click", function(event) {  
-    confetti({  
-        particleCount: 100,  
-        spread: 70,  
-        origin: { x: event.clientX / window.innerWidth, y: event.clientY / window.innerHeight }  
-    });  
-});  
-</script>
-    <script>
-    // List of emojis to show (change or add more)
-    const emojis = ["❤️", "💖", "💘", "😊", "😘", "💞", "🥰", "🌸"];
-
-    document.addEventListener("click", function(event) {
-        for (let i = 0; i < 3; i++) {  // Spawn 3 emojis per click
-            createEmoji(event.clientX, event.clientY);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Heart's Greetings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #ff6b8b;
+            --secondary-color: #ffb8c6;
+            --accent-color: #ffd166;
+            --text-color: #333;
+            --light-text: #fff;
+            --background: #fff9fb;
         }
-    });
-
-    function createEmoji(x, y) {
-        const emoji = document.createElement("div");
-        emoji.classList.add("emoji");
-        emoji.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
         
-        // Set emoji position near the click
-        emoji.style.left = (x + Math.random() * 30 - 15) + "px"; 
-        emoji.style.top = (y + Math.random() * 30 - 15) + "px"; 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         
-        // Randomize animation duration slightly
-        emoji.style.animationDuration = (1.5 + Math.random() * 1.5) + "s"; 
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--background);
+            color: var(--text-color);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
         
-        document.body.appendChild(emoji);
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1.5s ease-out;
+        }
+        
+        .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+            font-weight: 300;
+            animation: fadeIn 2s ease-out;
+        }
+        
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255, 107, 139, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(255, 107, 139, 0.3);
+        }
+        
+        .card-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .card-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, rgba(255, 255, 255, 0.9), transparent);
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-date {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 1rem;
+        }
+        
+        .card-btn {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+        }
+        
+        .card-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 107, 139, 0.4);
+        }
+        
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff6b8b"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat center center;
+            opacity: 0;
+            animation: float 10s linear infinite;
+        }
+        
 
-        // Remove emoji after animation
-        setTimeout(() => { emoji.remove(); }, 2000);
-    }
-             </script>
+        
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem 0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="floating-hearts" id="hearts-container"></div>
+    
+    <div class="container">
+        <header>
+            <h1>For only you</h1>
+            <p class="subtitle">a smalla effort ,by a someone</p>
+        </header>
+        
+        <div class="cards-container">
+            <div class="card" onclick="window.open('Ramadan.html', '_blank')">
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1519817650390-64a93db51149?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')"></div>
+                <div class="card-content">
+                    <h3 class="card-title">Ramzan Mubarak</h3>
+                    <p class="card-date">Blessed Ramadan</p>
+                    <button class="card-btn">Open Card</button>
+                </div>
+            </div>
+            
+            <div class="card" onclick="window.open('https://aaaaaaajhsjsfwjgw.my.canva.site/cc03', '_blank')">
+                <div class="card-image" style="background-image: url('0987.jpeg')"></div>
+                <div class="card-content">
+                    <h3 class="card-title">Eid Mubarak</h3>
+                    <p class="card-date">Joyous Celebration</p>
+                    <button class="card-btn">Open Card</button>
+                </div>
+            </div>
+            
+            <div class="card" onclick="window.open('bakrid-card.html', '_blank')">
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1604441100141-7b2a5556f6e8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')"></div>
+                <div class="card-content">
+                    <h3 class="card-title">Bakrid Greetings</h3>
+                    <p class="card-date">Festival of Sacrifice</p>
+                    <button class="card-btn">Open Card</button>
+                </div>
+            </div>
+            
 
 
 
@@ -414,4 +259,370 @@ document.addEventListener("click", function(event) {
 
 
 
-</body></html>
+
+
+
+
+
+           
+
+        </div>
+    </div>
+
+    <style>
+        #lyricsPlayer {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 280px;
+            height: 160px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(255, 107, 139, 0.6);
+            cursor: move;
+            z-index: 1000;
+            border: 2px solid #ff6b8b;
+            background: black;
+            touch-action: none; /* Important for touch drag to work properly */
+        }
+        
+        #lyricsVideo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: brightness(1.2) contrast(1.1);
+        }
+        
+        .player-controls {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 8px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .control-btn {
+            background: rgba(255, 107, 139, 0.7);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        
+        #unmuteBtn {
+            display: none; /* Initially hidden */
+        }
+        
+        #interactionOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            z-index: 9999;
+        }
+        
+        #interactionOverlay button {
+            background: #ff6b8b;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            margin-top: 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+    <!-- Interaction overlay (shown until user clicks) -->
+    <div id="interactionOverlay">
+        <h2>For abc def</h2>
+        <p>Click to experience romantic lyrics</p>
+        <button id="startExperience">Begin the Magic ♥</button>
+    </div>
+
+    <!-- Lyrics Video Player (initially hidden) -->
+    <div id="lyricsPlayer" style="display: none;">
+        <video id="lyricsVideo" loop playsinline>
+            <source src="videoplayback (1).mp4" type="video/mp4">
+        </video>
+        <div class="player-controls">
+            <button class="control-btn" id="playPauseBtn">⏸️</button>
+            <button class="control-btn" id="unmuteBtn">🔇</button>
+            <button class="control-btn" id="closeBtn">✕</button>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const overlay = document.getElementById('interactionOverlay');
+        const player = document.getElementById('lyricsPlayer');
+        const video = document.getElementById('lyricsVideo');
+        const startBtn = document.getElementById('startExperience');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const unmuteBtn = document.getElementById('unmuteBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        
+        // Draggable functionality
+        let isDragging = false;
+        let offsetX, offsetY;
+        
+        function startDrag(clientX, clientY) {
+            isDragging = true;
+            offsetX = clientX - player.getBoundingClientRect().left;
+            offsetY = clientY - player.getBoundingClientRect().top;
+            player.style.cursor = 'grabbing';
+        }
+        
+        function moveDrag(clientX, clientY) {
+            if (!isDragging) return;
+            player.style.left = `${clientX - offsetX}px`;
+            player.style.top = `${clientY - offsetY}px`;
+        }
+        
+        function endDrag() {
+            isDragging = false;
+            player.style.cursor = 'move';
+        }
+        
+        // Mouse events
+        player.addEventListener('mousedown', (e) => {
+            if (e.target.classList.contains('control-btn')) return;
+            startDrag(e.clientX, e.clientY);
+        });
+        
+        document.addEventListener('mousemove', (e) => {
+            moveDrag(e.clientX, e.clientY);
+        });
+        
+        document.addEventListener('mouseup', endDrag);
+        
+        // Touch events
+        player.addEventListener('touchstart', (e) => {
+            if (e.target.classList.contains('control-btn')) return;
+            e.preventDefault();
+            const touch = e.touches[0];
+            startDrag(touch.clientX, touch.clientY);
+        });
+        
+        document.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const touch = e.touches[0];
+            moveDrag(touch.clientX, touch.clientY);
+        });
+        
+        document.addEventListener('touchend', endDrag);
+        
+        // Start experience (main click handler)
+        startBtn.addEventListener('click', async () => {
+            overlay.style.display = 'none';
+            player.style.display = 'block';
+            
+            try {
+                await video.play();
+                playPauseBtn.textContent = '⏸️';
+                unmuteBtn.style.display = 'flex';
+            } catch (err) {
+                alert("Please interact with the page to play music!");
+            }
+        });
+        
+        // Control buttons
+        playPauseBtn.addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+                playPauseBtn.textContent = '⏸️';
+            } else {
+                video.pause();
+                playPauseBtn.textContent = '▶️';
+            }
+        });
+        
+        unmuteBtn.addEventListener('click', () => {
+            video.muted = !video.muted;
+            unmuteBtn.textContent = video.muted ? '🔇' : '🔊';
+        });
+        
+        closeBtn.addEventListener('click', () => {
+            player.style.display = 'none';
+            video.pause();
+        });
+
+    </script>
+
+    <footer>
+        <p>Made with ♥ </p>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Floating hearts animation
+        function createHearts() {
+            const container = document.getElementById('hearts-container');
+            const heartCount = 15;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                
+                // Random size
+                const size = Math.random() * 20 + 10;
+                heart.style.width = `${size}px`;
+                heart.style.height = `${size}px`;
+                
+                // Random position
+                heart.style.left = `${Math.random() * 100}vw`;
+                
+                // Random animation duration and delay
+                const duration = Math.random() * 15 + 10;
+                const delay = Math.random() * 5;
+                heart.style.animation = `float ${duration}s linear ${delay}s infinite`;
+                
+                container.appendChild(heart);
+            }
+        }
+        
+        // Particles.js configuration
+        function initParticles() {
+            particlesJS('particles-js', {
+                "particles": {
+                    "number": {
+                        "value": 30,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#ff6b8b"
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        },
+                        "polygon": {
+                            "nb_sides": 5
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.5,
+                        "random": true,
+                        "anim": {
+                            "enable": true,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 5,
+                        "random": true,
+                        "anim": {
+                            "enable": true,
+                            "speed": 2,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#ffb8c6",
+                        "opacity": 0.4,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 1,
+                        "direction": "none",
+                        "random": true,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": true,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "grab"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 140,
+                            "line_linked": {
+                                "opacity": 1
+                            }
+                        },
+                        "bubble": {
+                            "distance": 400,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 200,
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true
+            });
+        }
+        
+      
+        
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            createHearts();
+            initParticles();
+            setupMusicToggle();
+            
+            // Animate cards sequentially
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.animation = 'fadeIn 0.5s ease-out forwards';
+                    card.style.opacity = '0';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
