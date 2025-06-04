@@ -1,0 +1,417 @@
+
+<!DOCTYPE html>  <html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Ramadan Mubarak - Image Gallery</title>  
+
+   <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+            <link href="Emoji animation.css" rel="stylesheet">
+           <link href="heart floatUp.css" rel="stylesheet">
+    <style>/* General Styles */  
+body {  
+    font-family: 'Poppins', sans-serif;  
+      
+    transition: background 1s ease-in-out;  
+  
+    color: #fff;  
+    margin: 0;  
+    padding: 0;  
+    overflow-x: hidden;  
+}  
+
+  /* Header */
+header {
+    background: linear-gradient(135deg, #1f2a44, #2e3b5e);
+    color: #ffd700;
+    padding: 40px 0;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: fadeInDown 1.5s ease;
+    overflow: hidden;
+}
+        @media (min-width: 667px) { /* Tablets and Larger Screens */
+    header {
+        background: url('hero.jpg') no-repeat center center;
+        background-size: cover;
+        padding: 100px 20px; /* Increase padding for hero effect */}}
+
+/* Star Styling */
+.star {
+    position: absolute;
+    font-size: 18px;
+    color: #ffd700; /* Gold color */
+    cursor: pointer;
+    animation: twinkle 2s infinite alternate;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Twinkling Effect */
+@keyframes twinkle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+
+
+.star:hover {
+    transform: scale(1.2);
+}
+
+  
+header h1 {  
+    font-family: 'Amiri', serif;  
+    font-size: 4em;  
+    text-shadow: 3px 3px 10px rgba(255, 215, 0, 0.8);  
+}  
+  
+header p {  
+    font-size: 1.5em;  
+    text-shadow: 1px 1px 5px rgba(255, 215, 0, 0.6);  
+}  
+  
+header::before {  
+    content: "🌙";  
+    font-size: 100px;  
+    position: absolute;  
+    top: -20px;  
+    left: 10%;  
+    animation: moonGlow 2s infinite alternate;  
+}  
+  
+@keyframes moonGlow {  
+    from { opacity: 0.7; transform: scale(1); }  
+    to { opacity: 1; transform: scale(1.1); }  
+}  
+  
+/* Gallery */  
+.gallery {  
+    display: flex;  
+    flex-wrap: wrap;  
+    justify-content: center;  
+    padding: 20px;  
+    gap: 15px;  
+}  
+  
+.image-container {  
+    position: relative;  
+    width: 200px;  
+    height: 200px;  
+    overflow: hidden;  
+    border-radius: 15px;  
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);  
+    transition: transform 0.3s ease, box-shadow 0.3s ease;  
+    cursor: pointer;  
+}  
+  
+.image-container:hover {  
+    transform: scale(1.1);  
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);  
+}  
+  
+.image-container img {  
+    width: 100%;  
+    height: 100%;  
+    object-fit: cover;  
+    transition: transform 0.3s ease;  
+}  
+
+/* Lightbox */  
+.lightbox {  
+    display: none;  
+    position: fixed;  
+    z-index: 1000;  
+    padding-top: 60px;  
+    left: 0;  
+    top: 0;  
+    width: 100%;  
+    height: 100%;  
+    background: rgba(0, 0, 0, 0.8) url('ramadan-pattern.png') center/cover;  
+    text-align: center;  
+}  
+  @keyframes glowHeart {
+    0% { box-shadow: 0 0 5px red; }
+    50% { box-shadow: 0 0 20px pink; }
+    100% { box-shadow: 0 0 5px red; }
+}
+
+
+.lightbox-content {  
+    margin: auto;  
+    display: block;  
+    max-width: 90%;  
+    max-height: 80vh;  
+    border-radius: 10px;  
+    animation: zoomIn 0.3s ease;  
+}  
+  /* Animated Glowing Boundary for Lightbox Image */
+.lightbox-content {
+    animation: glowHeart 2s infinite alternate, zoomIn 0.3s ease;
+    border-radius: 15px;
+    border: 10px solid transparent; /* Transparent initial border */
+    background: linear-gradient(45deg, #ffd700, #ff6b6b, #8b5cf6, #00d4ff);
+    background-clip: padding-box;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+    position: relative;
+}
+
+/* Add a Shimmering Effect to the Border */
+.lightbox-content::before {
+    content: "";
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    right: -12px;
+    bottom: -12px;
+    border-radius: 20px;
+    background: linear-gradient(45deg, #ffd700, #ff6b6b, #8b5cf6, #00d4ff);
+    background-size: 300% 300%;
+    animation: shimmer 6s infinite linear;
+    z-index: -1;
+}
+
+/* Shimmer Animation */
+@keyframes shimmer {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Glowing Animation */
+@keyframes glowHeart {
+    0% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.7); }
+    50% { box-shadow: 0 0 20px rgba(255, 107, 107, 0.7); }
+    100% { box-shadow: 0 0 10px rgba(0, 212, 255, 0.7); }
+    }
+.close {  
+    position: absolute;  
+    top: 20px;  
+    right: 35px;  
+    color: #fff;  
+    font-size: 40px;  
+    font-weight: bold;  
+    cursor: pointer;  
+    transition: color 0.3s ease;  
+}  
+  
+.close:hover {  
+    color: #e74c3c;  
+}  
+  
+.caption {  
+    color: #fff;  
+    font-size: 1.2em;  
+    margin-top: 10px;  
+}  
+  
+/* Footer */  
+footer {  
+    background: linear-gradient(135deg, #2c3e50, #34495e);  
+    color: #ffd700;  
+    text-align: center;  
+    padding: 15px 0;  
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.3);  
+    font-size: 1.2em;  
+    text-shadow: 2px 2px 10px rgba(255, 215, 0, 0.7);  
+}  
+  
+  
+  
+/* Animations */  
+@keyframes fadeInDown {  
+    from { opacity: 0; transform: translateY(-20px); }  
+    to { opacity: 1; transform: translateY(0); }  
+}  
+  
+@keyframes zoomIn {  
+    from { transform: scale(0.8); }  
+    to { transform: scale(1); }  
+}</style>
+    </head>  
+<body> 
+     
+    <header>
+
+    <h1>Ramadan Mubarak</h1>  
+    <p>Blessed Month of Fasting, Prayer, and Reflection</p>  
+    <div id="stars-container"></div>
+</header>  
+<div id="love-message" style="color:blue"></div>
+  
+<div class="gallery">
+      
+    <!-- Add your images here -->  
+   <div class="image-container" data-src="A1.jpg">
+        <img src="A1.jpg" alt="Day1">  
+    </div>  
+    <div class="image-container" data-src="A2.jpg">  
+        <img src="A2.jpg" alt="Day2">  
+    </div>  
+    <div class="image-container" data-src="A3.jpg">  
+        <img src="A3.jpg" alt="Day3">  
+    </div>  
+    <div class="image-container" data-src="A4.jpg">  
+        <img src="A4.jpg" alt="Day4">  
+    </div>  
+    <div class="image-container" data-src="A5.jpg">  
+        <img src="A5.jpg" alt="Day5">  
+    </div>  
+    <div class="image-container" data-src="A6.jpg">  
+        <img src="A6.jpg" alt="Day6">  
+    </div>  
+    <div class="image-container" data-src="A7.jpg">  
+        <img src="A7.jpg" alt="Day7">  
+    </div>  
+    <div class="image-container" data-src="A8.jpg">  
+        <img src="A8.jpg" alt="Day8">  
+    </div>  
+    <div class="image-container" data-src="A9.jpg">  
+        <img src="A9.jpg" alt="Day9">  
+    </div>  
+    <div class="image-container" data-src="A10.jpg">  
+        <img src="A10.jpg" alt="Day10">  
+    </div>  
+    <div class="image-container" data-src="A11.jpg">  
+        <img src="A11.jpg" alt="Day11">  
+    </div>  
+     <div class="image-container" data-src="A12.jpg">
+            <img src="A12.jpg" alt="Day12">
+        </div>
+        <div class="image-container" data-src="A13.jpg">
+            <img src="A13.jpg" alt="Day13">
+        </div>
+        <div class="image-container" data-src="A14.jpg">
+            <img src="A14.jpg" alt="Day14">
+        </div>
+        <div class="image-container" data-src="A15.jpg">
+            <img src="A15.jpg" alt="Day15">
+        </div>
+        <div class="image-container" data-src="A16.jpg">
+            <img src="A16.jpg" alt="Day16">
+        </div>
+        <div class="image-container" data-src="A17.jpg">
+            <img src="A17.jpg" alt="Day17">
+        </div>
+        <div class="image-container" data-src="A18.jpg">
+            <img src="A18.jpg" alt="Day18">
+        </div>
+        <div class="image-container" data-src="A19.jpg">
+            <img src="A19.jpg" alt="Day19">
+        </div>
+        <div class="image-container" data-src="A20.jpg">
+            <img src="A20.jpg" alt="Day20">
+        </div>
+        <div class="image-container" data-src="A21.jpg">
+            <img src="A21.jpg" alt="Day21">
+      
+        </div>
+        <div class="image-container" data-src="A22.jpg">
+            <img src="A22.jpg" alt="Day22">
+        </div>
+        <div class="image-container" data-src="A23.gif">
+            <img src="A23.gif" alt="Day23">
+        </div>
+        <div class="image-container" data-src="A24.gif">
+            <img src="A24.gif" alt="Day24">
+        </div>
+        <div class="image-container" data-src="A25.gif">
+            <img src="A25.gif" alt="Day25">
+        </div>
+        <div class="image-container" data-src="A26.jpg">
+            <img src="A26.jpg" alt="Day26">
+        </div>
+        <div class="image-container" data-src="A27.jpg">
+            <img src="A27.jpg" alt="Day27">
+        </div>
+        <div class="image-container" data-src="A28.gif">
+            <img src="A28.gif" alt="Day28">
+        </div>
+        <div class="image-container" data-src="A29.jpg">
+            <img src="A29.jpg" alt="Day29">
+        </div>
+          <div class="image-container" data-src="A30.gif">
+             <a href="https://aaaaaaajhsjsfwjgw.my.canva.site/cc03"> <img src="A30.gif" alt="Day30"></a>
+        </div>
+        
+     
+</div>
+
+<!-- Lightbox -->  
+<div id="lightbox" class="lightbox">  
+    <span class="close">&times;</span>  
+    <img class="lightbox-content" id="lightbox-img">  
+    <div class="caption"></div>  
+</div>  
+<div id="hearts"></div> 
+<footer>  
+    <p>All rights reserved by suraj kr 😅.</p>  
+</footer>
+
+
+
+    
+
+    
+     
+
+<script src="backgroundcolor.js"></script>
+<script src="function createHeart.js"></script>     
+<script src="security.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.0"></script>    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script> 
+<script src="Lightbox functionality.js"></script> 
+<script src="audio.js"></script> 
+<script src="star-msg.js"></script> 
+<script src="p.message.js"></script> 
+<audio id="bg-music" loop>
+<source src="Aaa1.mp3" type="audio/mpeg">
+</audio> 
+
+
+
+     <script>  
+document.addEventListener("click", function(event) {  
+    confetti({  
+        particleCount: 100,  
+        spread: 70,  
+        origin: { x: event.clientX / window.innerWidth, y: event.clientY / window.innerHeight }  
+    });  
+});  
+</script>
+    <script>
+    // List of emojis to show (change or add more)
+    const emojis = ["❤️", "💖", "💘", "😊", "😘", "💞", "🥰", "🌸"];
+
+    document.addEventListener("click", function(event) {
+        for (let i = 0; i < 3; i++) {  // Spawn 3 emojis per click
+            createEmoji(event.clientX, event.clientY);
+        }
+    });
+
+    function createEmoji(x, y) {
+        const emoji = document.createElement("div");
+        emoji.classList.add("emoji");
+        emoji.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+        
+        // Set emoji position near the click
+        emoji.style.left = (x + Math.random() * 30 - 15) + "px"; 
+        emoji.style.top = (y + Math.random() * 30 - 15) + "px"; 
+        
+        // Randomize animation duration slightly
+        emoji.style.animationDuration = (1.5 + Math.random() * 1.5) + "s"; 
+        
+        document.body.appendChild(emoji);
+
+        // Remove emoji after animation
+        setTimeout(() => { emoji.remove(); }, 2000);
+    }
+             </script>
+
+
+
+
+
+
+
+</body></html>
