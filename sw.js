@@ -4,7 +4,7 @@ self.addEventListener('push', event => {
   const options = {
     body: data.body,
     icon: data.icon,
-    badge: '/badge.png'
+    badge: '/emoji1.jpg'
   };
   event.waitUntil(
     self.registration.showNotification(data.title, options)
