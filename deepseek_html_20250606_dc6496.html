@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eid Mubarak!🌙❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #4a1a2c, #1a1a2e);
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            cursor: pointer;
+            touch-action: manipulation;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        canvas {
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        .container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .message {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform: scale(0.9);
+            opacity: 0;
+            animation: fadeInScale 2s forwards 0.5s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5em;
+            margin: 0;
+            color: #ff6b6b;
+            text-shadow: 0 0 15px rgba(255, 107, 107, 0.7);
+            background: linear-gradient(to right, #ff6b6b, #ff8e8e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+        p {
+            font-size: 1em;
+            line-height: 1.6;
+            color: #fff;
+            margin: 10px 0;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+        .signature {
+            margin-top: 20px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5em;
+            color: #ffd3d3;
+            text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+            animation: pulse 2s infinite;
+        }
+        .moon {
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle at 30% 30%, #f9f3cc, #e4c95b);
+            border-radius: 50%;
+            box-shadow: 0 0 30px #f9f3cc;
+            z-index: -1;
+            opacity: 0;
+            animation: fadeIn 2s forwards 1s, float 8s ease-in-out infinite 3s;
+        }
+        .mosque {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 100px;
+            opacity: 0;
+            animation: fadeIn 2s forwards 1.5s;
+            z-index: -1;
+        }
+        .hearts-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            transition: all 0.3s ease;
+            outline: none;
+            width: auto;
+        }
+        .hearts-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
+        }
+        .hearts-btn:active {
+            transform: translateY(1px);
+        }
+        .hidden-message {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            animation: fadeIn 1s forwards;
+        }
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        pre {
+            color: silver;
+            font-size: 0.8em;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 15px auto 0;
+            max-width: 100%;
+        }
+        @media (min-width: 768px) {
+            h1 { font-size: 4em; }
+            p { font-size: 1.5em; }
+            .message { padding: 30px; }
+            .moon { 
+                width: 150px; 
+                height: 150px; 
+                top: -50px; 
+                right: -50px; 
+            }
+            .signature { font-size: 2em; }
+            pre { font-size: 1em; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    
+    <div class="container">
+        <div class="moon"></div>
+
+        <div class="message">
+            <h1>Eid Mubarak, My Love! 🌙</h1>
+            <p>On this blessed occasion of Eid al-Adha, I hope your heart is filled with the same warmth, love, and devotion that define this beautiful festival. May Allah accept your prayers, sacrifices, and good deeds, and bless you with endless joy, peace, and prosperity.Though we may follow different paths of faith, what unites us is far greater—the values of kindness, compassion, and gratitude. Today, as you celebrate with your loved ones, know that my sincerest wishes are with you. May your life be as sweet as the sevaiyan and as bright as the crescent moon.Enjoy the festivities, cherish the moments,</p>
+            <p>may this Eid bring you closer to all that is good in this world❤️..</p>
+            <p class="signature">Forever Yours,</p>
+        </div>
+       <pre>i even don't know you read ,this message or not .still i writting this </pre>
+    </div>
+
+    <script>
+        // Canvas Setup
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Resize canvas on window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Particles (Hearts & Stars)
+        const particles = [];
+        const colors = ['#ff6b6b', '#ffa3a3', '#ffd3d3', '#f8f9fa', '#fff'];
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 5 + 2;
+                this.speedX = Math.random() * 2 - 1;
+                this.speedY = Math.random() * 2 + 0.5;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = Math.random() * 2 - 1;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.rotation += this.rotationSpeed;
+
+                if (this.y > canvas.height) {
+                    this.y = 0;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation * Math.PI / 180);
+
+                // Draw heart or star
+                if (Math.random() > 0.5) {
+                    // Heart
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    const topCurveHeight = this.size * 0.3;
+                    ctx.moveTo(0, 0);
+                    ctx.bezierCurveTo(this.size / 2, -topCurveHeight * 2, this.size, 0, 0, this.size);
+                    ctx.bezierCurveTo(-this.size, 0, -this.size / 2, -topCurveHeight * 2, 0, 0);
+                    ctx.fill();
+                } else {
+                    // Star
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    for (let i = 0; i < 5; i++) {
+                        ctx.lineTo(
+                            Math.cos((18 + i * 72) / 180 * Math.PI) * this.size,
+                            -Math.sin((18 + i * 72) / 180 * Math.PI) * this.size
+                        );
+                        ctx.lineTo(
+                            Math.cos((54 + i * 72) / 180 * Math.PI) * this.size * 0.5,
+                            -Math.sin((54 + i * 72) / 180 * Math.PI) * this.size * 0.5
+                        );
+                    }
+                    ctx.closePath();
+                    ctx.fill();
+                }
+
+                ctx.restore();
+            }
+        }
+
+        // Create particles
+        for (let i = 0; i < 50; i++) {
+            particles.push(new Particle());
+        }
+
+        // Click effect (Rose petals / stars)
+        canvas.addEventListener('click', (e) => {
+            for (let i = 0; i < 10; i++) {
+                particles.push(new ClickParticle(e.clientX, e.clientY));
+            }
+        });
+
+        class ClickParticle extends Particle {
+            constructor(x, y) {
+                super();
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 8 + 3;
+                this.speedX = Math.random() * 6 - 3;
+                this.speedY = Math.random() * 6 - 3;
+                this.alpha = 1;
+                this.decay = Math.random() * 0.02 + 0.01;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.alpha -= this.decay;
+                return this.alpha > 0;
+            }
+
+            draw() {
+                ctx.globalAlpha = this.alpha;
+                super.draw();
+                ctx.globalAlpha = 1;
+            }
+        }
+
+        // Animation loop
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+
+                if (particles[i] instanceof ClickParticle && !particles[i].update()) {
+                    particles.splice(i, 1);
+                    i--;
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>

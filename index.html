@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Heart's Greetings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #ff6b8b;
+            --secondary-color: #ffb8c6;
+            --accent-color: #ffd166;
+            --text-color: #333;
+            --light-text: #fff;
+            --background: #fff9fb;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--background);
+            color: var(--text-color);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1.5s ease-out;
+        }
+        
+        .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+            font-weight: 300;
+            animation: fadeIn 2s ease-out;
+        }
+        
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255, 107, 139, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(255, 107, 139, 0.3);
+        }
+        
+        .card-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .card-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, rgba(255, 255, 255, 0.9), transparent);
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-date {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 1rem;
+        }
+        
+        .card-btn {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+        }
+        
+        .card-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 107, 139, 0.4);
+        }
+        
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff6b8b"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat center center;
+            opacity: 0;
+            animation: float 10s linear infinite;
+        }
+        
+
+        
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem 0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="floating-hearts" id="hearts-container"></div>
+    
+    <div class="container">
+        <header>
+            <h1>For only you</h1>
+            <p class="subtitle">a smalla effort ,by a someone</p>
+        </header>
+        
+        <div class="cards-container">
+            <div class="card" onclick="window.open('Ramadan.html', '_blank')">
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1519817650390-64a93db51149?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')"></div>
+                <div class="card-content">
+                    <h3 class="card-title">Ramzan Mubarak</h3>
+                    <p class="card-date">Blessed Ramadan</p>
+                    <button class="card-btn">Open Card</button>
+                </div>
+            </div>
+            
+            <div class="card" onclick="window.open('https://aaaaaaajhsjsfwjgw.my.canva.site/cc03', '_blank')">
+                <div class="card-image" style="background-image: url('0987.jpeg')"></div>
+                <div class="card-content">
+                    <h3 class="card-title">Eid Mubarak</h3>
+                    <p class="card-date">Joyous Celebration</p>
+                    <button class="card-btn">Open Card</button>
+                </div>
+            </div>
+            
+            <div class="card" onclick="window.open('deepseek_html_20250606_dc6496.html', '_blank')">
+                <div class="card-image" style="background-image: url('Eid al-Adha.jpg')"></div>
+                <div class="card-content">
+                    <h3 class="card-title">Eid al-Adha</h3>
+                    <p class="card-date">Festival of Sacrifice</p>
+                    <button class="card-btn">Open Card</button>
+                </div>
+            </div>
+            
+
+
+
+
+
+
+
+
+
+
+
+
+           
+
+        </div>
+    </div>
+
+    <style>
+        #lyricsPlayer {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 280px;
+            height: 160px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(255, 107, 139, 0.6);
+            cursor: move;
+            z-index: 1000;
+            border: 2px solid #ff6b8b;
+            background: black;
+            touch-action: none; /* Important for touch drag to work properly */
+        }
+        
+        #lyricsVideo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: brightness(1.2) contrast(1.1);
+        }
+        
+        .player-controls {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 8px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .control-btn {
+            background: rgba(255, 107, 139, 0.7);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        
+        #unmuteBtn {
+            display: none; /* Initially hidden */
+        }
+        
+        #interactionOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            z-index: 9999;
+        }
+        
+        #interactionOverlay button {
+            background: #ff6b8b;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            margin-top: 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+    <!-- Interaction overlay (shown until user clicks) -->
+    <div id="interactionOverlay">
+
+        <button id="startExperience">Begin the Magic ♥</button>
+    </div>
+
+    <!-- Lyrics Video Player (initially hidden) -->
+    <div id="lyricsPlayer" style="display: none;">
+        <video id="lyricsVideo" loop playsinline>
+            <source src="videoplayback (1).mp4" type="video/mp4">
+        </video>
+        <div class="player-controls">
+            <button class="control-btn" id="playPauseBtn">⏸️</button>
+            <button class="control-btn" id="unmuteBtn">🔇</button>
+            <button class="control-btn" id="closeBtn">✕</button>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const overlay = document.getElementById('interactionOverlay');
+        const player = document.getElementById('lyricsPlayer');
+        const video = document.getElementById('lyricsVideo');
+        const startBtn = document.getElementById('startExperience');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const unmuteBtn = document.getElementById('unmuteBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        
+        // Draggable functionality
+        let isDragging = false;
+        let offsetX, offsetY;
+        
+        function startDrag(clientX, clientY) {
+            isDragging = true;
+            offsetX = clientX - player.getBoundingClientRect().left;
+            offsetY = clientY - player.getBoundingClientRect().top;
+            player.style.cursor = 'grabbing';
+        }
+        
+        function moveDrag(clientX, clientY) {
+            if (!isDragging) return;
+            player.style.left = `${clientX - offsetX}px`;
+            player.style.top = `${clientY - offsetY}px`;
+        }
+        
+        function endDrag() {
+            isDragging = false;
+            player.style.cursor = 'move';
+        }
+        
+        // Mouse events
+        player.addEventListener('mousedown', (e) => {
+            if (e.target.classList.contains('control-btn')) return;
+            startDrag(e.clientX, e.clientY);
+        });
+        
+        document.addEventListener('mousemove', (e) => {
+            moveDrag(e.clientX, e.clientY);
+        });
+        
+        document.addEventListener('mouseup', endDrag);
+        
+        // Touch events
+        player.addEventListener('touchstart', (e) => {
+            if (e.target.classList.contains('control-btn')) return;
+            e.preventDefault();
+            const touch = e.touches[0];
+            startDrag(touch.clientX, touch.clientY);
+        });
+        
+        document.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const touch = e.touches[0];
+            moveDrag(touch.clientX, touch.clientY);
+        });
+        
+        document.addEventListener('touchend', endDrag);
+        
+        // Start experience (main click handler)
+        startBtn.addEventListener('click', async () => {
+            overlay.style.display = 'none';
+            player.style.display = 'block';
+            
+            try {
+                await video.play();
+                playPauseBtn.textContent = '⏸️';
+                unmuteBtn.style.display = 'flex';
+            } catch (err) {
+                alert("Please interact with the page to play music!");
+            }
+        });
+        
+        // Control buttons
+        playPauseBtn.addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+                playPauseBtn.textContent = '⏸️';
+            } else {
+                video.pause();
+                playPauseBtn.textContent = '▶️';
+            }
+        });
+        
+        unmuteBtn.addEventListener('click', () => {
+            video.muted = !video.muted;
+            unmuteBtn.textContent = video.muted ? '🔇' : '🔊';
+        });
+        
+        closeBtn.addEventListener('click', () => {
+            player.style.display = 'none';
+            video.pause();
+        });
+
+    </script>
+
+    <footer>
+        <p>Made with ♥ </p>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Floating hearts animation
+        function createHearts() {
+            const container = document.getElementById('hearts-container');
+            const heartCount = 15;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                
+                // Random size
+                const size = Math.random() * 20 + 10;
+                heart.style.width = `${size}px`;
+                heart.style.height = `${size}px`;
+                
+                // Random position
+                heart.style.left = `${Math.random() * 100}vw`;
+                
+                // Random animation duration and delay
+                const duration = Math.random() * 15 + 10;
+                const delay = Math.random() * 5;
+                heart.style.animation = `float ${duration}s linear ${delay}s infinite`;
+                
+                container.appendChild(heart);
+            }
+        }
+        
+        // Particles.js configuration
+        function initParticles() {
+            particlesJS('particles-js', {
+                "particles": {
+                    "number": {
+                        "value": 30,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#ff6b8b"
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        },
+                        "polygon": {
+                            "nb_sides": 5
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.5,
+                        "random": true,
+                        "anim": {
+                            "enable": true,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 5,
+                        "random": true,
+                        "anim": {
+                            "enable": true,
+                            "speed": 2,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#ffb8c6",
+                        "opacity": 0.4,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 1,
+                        "direction": "none",
+                        "random": true,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": true,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "grab"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 140,
+                            "line_linked": {
+                                "opacity": 1
+                            }
+                        },
+                        "bubble": {
+                            "distance": 400,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 200,
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true
+            });
+        }
+        
+      
+        
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            createHearts();
+            initParticles();
+            setupMusicToggle();
+            
+            // Animate cards sequentially
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.animation = 'fadeIn 0.5s ease-out forwards';
+                    card.style.opacity = '0';
+                }, index * 100);
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--notification-->
+    <script>// Ask for notification permission
+function requestNotificationPermission() {
+  if ('Notification' in window) {
+    Notification.requestPermission().then(permission => {
+      if (permission === 'granted') {
+        console.log('Notification permission granted!');
+        // You can now send notifications
+      } else {
+        console.log('Permission denied.');
+      }
+    });
+  }
+}
+
+// Call this function on a button click or page load
+requestNotificationPermission();</script> 
+    <script>function showNotification(title, options) {
+  if ('Notification' in window && Notification.permission === 'granted') {
+    new Notification(title, options);
+  }
+}
+
+// Example usage:
+showNotification("Hello!", {
+  body: "This is a push notification from your website!",
+  icon: "/icon.png" // Optional icon
+});</script> 
+    <script>// Register Service Worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js')
+    .then(registration => {
+      console.log('Service Worker registered!');
+    });
+}</script> 
+    <script></script>
+
+
+
+
+
+
+
+    
+</body>
+</html>
