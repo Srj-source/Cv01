@@ -1,8 +1,5 @@
 # Cv01    this has a 
                      landing page ,   in 
-                     ramdan page,   in
-                      eid page,   in
-                      eid2 page in 
                       bdy as untitled out
 ⚠️ STRICT WARNING: UNAUTHORIZED USE PROHIBITED ⚠️
 This website and its source code are strictly for my personal use. Any unauthorized access, copying, embedding (including iFrames), or redistribution is EXPLICITLY FORBIDDEN.
