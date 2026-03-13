@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heart Flip Image Game</title>
+  <style>
+    :root {
+      --bg: #000;
+      --tile: #cfd3d8;
+      --text: #f5f5f5;
+      --muted: #9ca3af;
+      --shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+      --card-size: min(9vw, 74px);
+      --gap: min(0.8vw, 8px);
+      --radius: 8px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+      overflow: hidden;
+    }
+
+    .game {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      position: relative;
+      padding: 24px;
+    }
+
+    .board-wrap {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      width: 100%;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(9, var(--card-size));
+      gap: var(--gap);
+      justify-content: center;
+      align-items: center;
+      user-select: none;
+      z-index: 2;
+    }
+
+    .empty {
+      width: var(--card-size);
+      height: var(--card-size);
+    }
+
+    .card {
+      width: var(--card-size);
+      height: var(--card-size);
+      perspective: 900px;
+      cursor: pointer;
+      border: 0;
+      background: transparent;
+      padding: 0;
+    }
+
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.55s ease;
+    }
+
+    .card.flipped .card-inner,
+    .card.matched .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .face {
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius);
+      overflow: hidden;
+      backface-visibility: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .front {
+      background: var(--tile);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .back {
+      transform: rotateY(180deg);
+      background-size: cover;
+      background-position: center;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .card.matched {
+      cursor: default;
+    }
+
+    .card.matched .front,
+    .card.matched .back {
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 10px 24px rgba(255,255,255,0.06);
+    }
+
+    .side-text {
+      position: absolute;
+      bottom: 30px;
+      font-size: clamp(24px, 3.4vw, 60px);
+      line-height: 0.95;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .left-copy { left: 36px; text-align: left; }
+    .right-copy { right: 36px; text-align: right; }
+    .muted { color: var(--muted); }
+
+    .hud {
+      font-family: Arial, Helvetica, sans-serif;
+      color: rgba(255,255,255,0.72);
+      font-size: 14px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .restart {
+      background: rgba(255,255,255,0.08);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.14);
+      padding: 8px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .restart:hover { background: rgba(255,255,255,0.14); }
+
+    .surprise {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      background: rgba(0,0,0,0.82);
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.4s ease;
+      z-index: 20;
+      padding: 24px;
+    }
+
+    .surprise.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .surprise-card {
+      width: min(92vw, 700px);
+      background: rgba(15,15,15,0.95);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      padding: 28px;
+      text-align: center;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.45);
+    }
+
+    .surprise-card h2 {
+      margin: 0 0 12px;
+      font-size: clamp(28px, 5vw, 52px);
+    }
+
+    .surprise-card p {
+      margin: 0 0 18px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: rgba(255,255,255,0.78);
+      font-size: clamp(15px, 2vw, 18px);
+      line-height: 1.6;
+    }
+
+    .close-btn {
+      background: white;
+      color: black;
+      border: 0;
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .credit {
+      position: absolute;
+      right: 22px;
+      bottom: 16px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      color: rgba(255,255,255,0.18);
+    }
+
+    @media (max-width: 900px) {
+      :root {
+        --card-size: min(9.4vw, 58px);
+        --gap: 6px;
+      }
+
+      .side-text {
+        bottom: 18px;
+        font-size: clamp(18px, 6vw, 34px);
+      }
+
+      .left-copy { left: 16px; }
+      .right-copy { right: 16px; }
+    }
+
+    @media (max-width: 640px) {
+      body { overflow-y: auto; }
+      .game { padding-bottom: 120px; }
+      .side-text {
+        position: static;
+        text-align: center;
+        transform: none;
+      }
+      .board-wrap { gap: 10px; }
+      .copy-row {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+      }
+      .credit {
+        position: static;
+        text-align: center;
+        margin-top: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="game">
+    <div class="board-wrap">
+      <div id="board" class="board" aria-label="Memory card game board"></div>
+
+      <div class="hud">
+        <span id="moves">Moves: 0</span>
+        <span id="matches">Matches: 0</span>
+        <button class="restart" id="restartBtn" type="button">Restart</button>
+      </div>
+
+      <div class="copy-row">
+        <h1 class="side-text left-copy"><span class="muted">Match</span><br>the photo pairs</h1>
+        <h1 class="side-text right-copy">to reveal<br><span class="muted">the surprise</span></h1>
+      </div>
+    </div>
+
+    <div class="credit">© 2026 yoursite.com</div>
+  </main>
+
+  <section class="surprise" id="surprise">
+    <div class="surprise-card">
+      <h2>Your surprise ✨</h2>
+      <p>
+        Replace this message with your final reveal.<br>
+        Example: “You found every match. Will you marry me?”
+      </p>
+      <button class="close-btn" id="closeSurprise" type="button">Close</button>
+    </div>
+  </section>
+
+  <script>
+    /*
+      HOW TO USE:
+      1. Put your image URLs in pairImages.
+      2. Each image is duplicated once automatically.
+      3. When all pairs are matched, the surprise modal appears.
+      4. Owner cheat: press A, B, C in sequence to auto-match every card.
+    */
+
+    const heartLayout = [
+      [0,0,1,1,0,1,1,0,0],
+      [0,1,1,1,1,1,1,1,0],
+      [1,1,1,1,1,1,1,1,1],
+      [0,1,1,1,1,1,1,1,0],
+      [0,0,1,1,1,1,1,0,0],
+      [0,0,0,1,1,1,0,0,0]
+    ];
+
+    const pairImages = [
+      "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1511988617509-a57c8a288659?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1521119989659-a83eee488004?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1494790108755-2616b612b786?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1522556189639-b150d6e058ce?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1492447166138-50c3889fccb1?auto=format&fit=crop&w=600&q=80"
+    ];
+
+    const board = document.getElementById("board");
+    const movesEl = document.getElementById("moves");
+    const matchesEl = document.getElementById("matches");
+    const restartBtn = document.getElementById("restartBtn");
+    const surprise = document.getElementById("surprise");
+    const closeSurprise = document.getElementById("closeSurprise");
+
+    const totalActiveSlots = heartLayout.flat().filter(Boolean).length;
+    const totalPairsNeeded = totalActiveSlots / 2;
+
+    let cards = [];
+    let firstCard = null;
+    let secondCard = null;
+    let lockBoard = false;
+    let moves = 0;
+    let matchedPairs = 0;
+    let cheatSequence = [];
+    let cheatRunning = false;
+
+    function shuffle(array) {
+      const copy = [...array];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function buildDeck() {
+      if (pairImages.length < totalPairsNeeded) {
+        throw new Error(`You need at least ${totalPairsNeeded} image URLs.`);
+      }
+
+      const selected = pairImages.slice(0, totalPairsNeeded);
+      const deck = shuffle(
+        selected.flatMap((image, index) => [
+          { id: `${index}-a`, pairId: index, image },
+          { id: `${index}-b`, pairId: index, image }
+        ])
+      );
+
+      return deck;
+    }
+
+    function updateHud() {
+      movesEl.textContent = `Moves: ${moves}`;
+      matchesEl.textContent = `Matches: ${matchedPairs}/${totalPairsNeeded}`;
+    }
+
+    function createCard(cardData) {
+      const button = document.createElement("button");
+      button.className = "card";
+      button.type = "button";
+      button.dataset.id = cardData.id;
+      button.dataset.pairId = String(cardData.pairId);
+      button.setAttribute("aria-label", "Memory card");
+
+      button.innerHTML = `
+        <div class="card-inner">
+          <div class="face front"></div>
+          <div class="face back" style="background-image:url('${cardData.image}')"></div>
+        </div>
+      `;
+
+      button.addEventListener("click", () => flipCard(button));
+      return button;
+    }
+
+    function renderBoard() {
+      board.innerHTML = "";
+      const deck = buildDeck();
+      let deckIndex = 0;
+      cards = [];
+
+      heartLayout.forEach(row => {
+        row.forEach(cell => {
+          if (!cell) {
+            const spacer = document.createElement("div");
+            spacer.className = "empty";
+            board.appendChild(spacer);
+            return;
+          }
+
+          const card = createCard(deck[deckIndex]);
+          cards.push(card);
+          board.appendChild(card);
+          deckIndex += 1;
+        });
+      });
+    }
+
+    function flipCard(card) {
+      if (
+        lockBoard ||
+        cheatRunning ||
+        card === firstCard ||
+        card.classList.contains("matched") ||
+        card.classList.contains("flipped")
+      ) {
+        return;
+      }
+
+      card.classList.add("flipped");
+
+      if (!firstCard) {
+        firstCard = card;
+        return;
+      }
+
+      secondCard = card;
+      lockBoard = true;
+      moves += 1;
+      updateHud();
+
+      const isMatch = firstCard.dataset.pairId === secondCard.dataset.pairId;
+
+      if (isMatch) {
+        firstCard.classList.add("matched");
+        secondCard.classList.add("matched");
+        matchedPairs += 1;
+        updateHud();
+        resetTurn();
+
+        if (matchedPairs === totalPairsNeeded) {
+          setTimeout(() => surprise.classList.add("show"), 500);
+        }
+        return;
+      }
+
+      setTimeout(() => {
+        firstCard.classList.remove("flipped");
+        secondCard.classList.remove("flipped");
+        resetTurn();
+      }, 900);
+    }
+
+    function resetTurn() {
+      [firstCard, secondCard, lockBoard] = [null, null, false];
+    }
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function runCheatReveal() {
+      if (cheatRunning || matchedPairs === totalPairsNeeded) {
+        return;
+      }
+
+      cheatRunning = true;
+      lockBoard = true;
+      firstCard = null;
+      secondCard = null;
+
+      const unmatchedByPair = new Map();
+      cards.forEach(card => {
+        if (card.classList.contains("matched")) return;
+        const pairId = card.dataset.pairId;
+        if (!unmatchedByPair.has(pairId)) unmatchedByPair.set(pairId, []);
+        unmatchedByPair.get(pairId).push(card);
+      });
+
+      for (const pairCards of unmatchedByPair.values()) {
+        const [cardA, cardB] = pairCards;
+        if (!cardA || !cardB) continue;
+
+        cardA.classList.add("flipped");
+        await sleep(120);
+        cardB.classList.add("flipped");
+        await sleep(240);
+
+        cardA.classList.add("matched");
+        cardB.classList.add("matched");
+        matchedPairs += 1;
+        updateHud();
+
+        await sleep(110);
+      }
+
+      cheatRunning = false;
+      lockBoard = false;
+
+      if (matchedPairs === totalPairsNeeded) {
+        setTimeout(() => surprise.classList.add("show"), 350);
+      }
+    }
+
+    function handleCheatKey(event) {
+      const key = event.key.toLowerCase();
+      if (!["a", "b", "c"].includes(key)) {
+        cheatSequence = [];
+        return;
+      }
+
+      cheatSequence.push(key);
+      if (cheatSequence.length > 3) cheatSequence.shift();
+
+      if (cheatSequence.join("") === "abc") {
+        cheatSequence = [];
+        runCheatReveal();
+      }
+    }
+
+    function initGame() {
+      firstCard = null;
+      secondCard = null;
+      lockBoard = false;
+      moves = 0;
+      matchedPairs = 0;
+      cheatSequence = [];
+      cheatRunning = false;
+      surprise.classList.remove("show");
+      renderBoard();
+      updateHud();
+    }
+
+    restartBtn.addEventListener("click", initGame);
+    closeSurprise.addEventListener("click", () => surprise.classList.remove("show"));
+    window.addEventListener("keydown", handleCheatKey);
+
+    initGame();
+  </script>
+</body>
+</html>
