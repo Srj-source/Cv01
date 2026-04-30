@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Smart Redirect</title>
+<script>
+function detectDevice() {
+    var userAgent = navigator.userAgent.toLowerCase();
+
+    if (/android|iphone|ipad|ipod|mobile/i.test(userAgent)) {
+        window.location.href = "https://mobile-link.com";
+    } else {
+        window.location.href = "https://desktop-link.com";
+    }
+}
+</script>
+</head>
+<body onload="detectDevice()">
+</body>
+</html>
