@@ -1,4 +1,27 @@
+
+
 <!DOCTYPE html>
+<html>
+<head>
+<title>Smart Redirect</title>
+<script>
+function detectDevice() {
+    var userAgent = navigator.userAgent.toLowerCase();
+
+    if (/android|iphone|ipad|ipod|mobile/i.test(userAgent)) {
+        window.location.href = "https://shxbaa.github.io";
+    } else {
+        window.location.href = "https://shxbaa.github.io";
+    }
+}
+</script>
+</head><!-- preview.html-->
+<body onload="detectDevice()">
+</body>
+</html>
+
+
+<!--<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -255,7 +278,7 @@
 
 
    
-   <!-- <script src="https://srj-source.github.io/error-handel.js"></script>-->
+   <!-- <script src="https://srj-source.github.io/error-handel.js"></script>
     <div id="particles-js"></div>
     <div class="floating-hearts" id="hearts-container"></div>
     
@@ -761,7 +784,7 @@ if ('serviceWorker' in navigator) {
       console.log('Service Worker registered!');
     });
 }</script> 
-    <script></script>
+
 
 
 
