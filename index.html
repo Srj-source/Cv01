@@ -8,8 +8,6 @@
     <title>My Heart's Greetings</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-       <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script src="https://srj-source.github.io/error-handel.js"></script>
     <link rel="icon" type="image/x-icon" href="emoji1.jpg">
     <style>
@@ -223,38 +221,7 @@
 <body>
 
 
-   
-    <script>
-        const firebaseConfig = {
-           apiKey: "AIzaSyAe_bXjeooubZGCQZ0SEW-IAWqZwI8EdOw",
-  authDomain: "chatsstm321.firebaseapp.com",
-  databaseURL: "https://chatsstm321-default-rtdb.firebaseio.com",
-  projectId: "chatsstm321",
-  storageBucket: "chatsstm321.firebasestorage.app",
-  messagingSenderId: "903789528310",
-  appId: "1:903789528310:web:d028527f343756e2fb98d7"
-        };
-        
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-        
-        async function goToPage(page) {
-            const token = Math.random().toString(36).substring(2) + Date.now();
-            const expiresAt = Date.now() + 5000;
-            
-            await db.collection('secure_tokens').doc(token).set({
-                token: token,
-                expiresAt: expiresAt
-            });
-            
-            setTimeout(() => {
-                db.collection('secure_tokens').doc(token).delete();
-            }, 6000);
-            
-            window.location.href = `${page}?token=${token}`;
-        }
-    </script>
-
+  
 
    
     <script src="https://srj-source.github.io/error-handel.js"></script>
